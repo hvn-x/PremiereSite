@@ -76,10 +76,10 @@ code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
 .site-nav a.nav-cta {
   padding: 9px 16px;
   border-radius: 999px;
-  background: var(--ticket);
+  background: var(--champagne);
   color: var(--ink);
   font-weight: 700;
-  box-shadow: 0 6px 24px -6px rgba(225, 29, 72, 0.7);
+  box-shadow: 0 6px 24px -8px rgba(255, 214, 120, 0.6);
 }
 .site-nav a.nav-cta:hover { color: var(--ink); filter: brightness(1.08); }
 
@@ -318,10 +318,10 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .pitch p { margin: 0; max-width: 58ch; font-size: 1.15rem; color: var(--paper); }
 .btn-glow {
   flex: none;
-  background: var(--ticket);
+  background: var(--champagne);
   color: var(--ink);
   padding-inline: 28px;
-  box-shadow: 0 10px 40px -10px rgba(225, 29, 72, 0.8);
+  box-shadow: 0 10px 40px -12px rgba(255, 214, 120, 0.7);
 }
 .btn-glow:hover { color: var(--ink); filter: brightness(1.08); }
 
@@ -338,11 +338,9 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .promises dt {
   font: 900 clamp(2rem, 4.4vw, 3.4rem)/0.92 var(--display);
   text-transform: uppercase;
-  background: var(--ticket);
-  -webkit-background-clip: text;
-          background-clip: text;
-  color: transparent;
+  color: var(--champagne);
 }
+.promises > div:nth-child(even) dt { color: var(--paper); }
 .promises dd { margin: 0; align-self: center; color: var(--paper-dim); font-size: 1.08rem; max-width: 52ch; }
 
 /* ── Closing call to action ─────────────────────────────────────────── */
@@ -362,7 +360,7 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .closing h2 { margin: 0 0 10px; font: 900 clamp(2.4rem, 5.4vw, 4.2rem)/0.9 var(--display); text-transform: uppercase; }
 .closing p { margin: 0; color: #f0d9dc; font-size: 1.12rem; }
 .closing-actions { display: grid; gap: 12px; }
-.closing .btn-primary { background: var(--ticket); color: var(--ink); }
+.closing .btn-primary { background: var(--champagne); color: var(--ink); }
 .closing .btn-secondary { background: rgba(255, 243, 228, 0.12); color: var(--paper); box-shadow: inset 0 0 0 2px rgba(255, 243, 228, 0.7); }
 .closing .stub-link { color: var(--champagne); }
 
@@ -419,11 +417,12 @@ section { padding-block: clamp(48px, 8vw, 96px); }
     radial-gradient(circle at 100% 62%, transparent var(--notch), #000 calc(var(--notch) + 1px)) right / 51% 100% no-repeat;
   transition: transform 220ms cubic-bezier(.2, .8, .2, 1);
 }
-.stub:nth-child(1) { background: linear-gradient(135deg, #ffe39b, #ffd678); transform: rotate(-3deg); }
-.stub:nth-child(2) { background: linear-gradient(135deg, #ffc35a, #f5a524); transform: rotate(2deg) translateY(10px); }
-.stub:nth-child(3) { background: linear-gradient(135deg, #ff8a6a, #ea5b38); transform: rotate(-1.5deg); }
-.stub:nth-child(4) { background: linear-gradient(135deg, #ff5a7e, #e11d48); transform: rotate(2.5deg) translateY(8px); }
-.stub:nth-child(5) { background: linear-gradient(135deg, #b8163f, #881337); color: var(--paper); transform: rotate(-2deg); }
+/* Solid colours walking along the palette (the gradient is kept for the hero ticket). */
+.stub:nth-child(1) { background: var(--champagne); transform: rotate(-3deg); }
+.stub:nth-child(2) { background: var(--amber); transform: rotate(2deg) translateY(10px); }
+.stub:nth-child(3) { background: var(--playbill); transform: rotate(-1.5deg); }
+.stub:nth-child(4) { background: #c8173f; color: var(--paper); transform: rotate(2.5deg) translateY(8px); }
+.stub:nth-child(5) { background: var(--velvet); color: var(--paper); transform: rotate(-2deg); }
 .stub:hover { transform: rotate(0) translateY(-6px); }
 .stub h3 { margin: 0 0 4px; font: 900 2.4rem/0.9 var(--display); text-transform: uppercase; }
 .stub p { margin: 0; font-weight: 500; font-size: 0.98rem; }
@@ -482,6 +481,7 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 }
 .site-footer .links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 14px; font-weight: 500; }
 .site-footer p { margin: 0; max-width: 90ch; }
+.site-footer .credits { margin-top: 10px; font-size: 0.82rem; opacity: 0.85; }
 
 /* ── Playbill: privacy policy and terms ─────────────────────────────── */
 .playbill-stage { padding-block: clamp(20px, 4vw, 48px) 80px; }
@@ -492,16 +492,16 @@ section { padding-block: clamp(48px, 8vw, 96px); }
   top: 24px;
   padding: 22px 22px 20px;
   border-radius: 14px;
-  background: var(--ticket);
-  color: var(--ink);
+  background: var(--playbill);
+  color: var(--playbill-ink);
   -webkit-mask: radial-gradient(circle at 50% 0, transparent 14px, #000 15px) top / 100% 51% no-repeat,
                 radial-gradient(circle at 50% 100%, transparent 14px, #000 15px) bottom / 100% 51% no-repeat;
           mask: radial-gradient(circle at 50% 0, transparent 14px, #000 15px) top / 100% 51% no-repeat,
                 radial-gradient(circle at 50% 100%, transparent 14px, #000 15px) bottom / 100% 51% no-repeat;
 }
-.toc p { margin: 0 0 10px; font: 900 1.5rem/1 var(--display); text-transform: uppercase; }
+.toc p { margin: 0 0 10px; font: 900 1.5rem/1 var(--display); text-transform: uppercase; color: var(--velvet); }
 .toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-.toc a { color: var(--ink); font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+.toc a { color: var(--playbill-ink); font-weight: 600; font-size: 0.95rem; text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
 
 .playbill {
