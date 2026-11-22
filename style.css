@@ -92,24 +92,34 @@ code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
   z-index: -1;
 }
 
+/* Each beam is a soft wedge drawn with a conic gradient (soft edges come from the
+   gradient itself: no blur, no clipping), faded along its length with a mask.
+   Only `transform` animates, so the browser can run it on the GPU. */
 .searchlight {
+  --beam: rgba(255, 228, 165, 0.5);
   position: absolute;
-  bottom: -6%;
-  width: 34vmax;
-  height: 130vmax;
-  max-width: 560px;
+  bottom: -4%;
+  width: 70vh;
+  height: 150vh;
+  margin-left: -35vh;  /* centre the wedge's tip on the anchor point */
   transform-origin: 50% 100%;
-  background: linear-gradient(0deg, rgba(255, 226, 160, 0.55), rgba(255, 214, 120, 0.12) 45%, transparent 85%);
-  clip-path: polygon(46% 100%, 54% 100%, 100% 0, 0 0);
-  filter: blur(6px);
-  mix-blend-mode: screen;
+  background:
+    radial-gradient(18% 6% at 50% 100%, rgba(255, 240, 200, 0.55), transparent 100%),
+    conic-gradient(from -11deg at 50% 100%,
+      transparent 0deg, var(--beam) 7deg, rgba(255, 240, 200, 0.78) 11deg, var(--beam) 15deg,
+      transparent 22deg, transparent 360deg);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.7) 55%, transparent 100%);
+          mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.7) 55%, transparent 100%);
+  will-change: transform;
   z-index: -1;
   pointer-events: none;
 }
-.searchlight.left  { left: 4%;  animation: sweep-left 11s ease-in-out infinite alternate; }
-.searchlight.right { right: 4%; animation: sweep-right 13s ease-in-out infinite alternate; }
-@keyframes sweep-left  { from { transform: rotate(-28deg); } to { transform: rotate(14deg); } }
-@keyframes sweep-right { from { transform: rotate(26deg); } to { transform: rotate(-16deg); } }
+/* A mirrored pair on one shared timeline, so they swing together and cross. */
+.searchlight.left  { left: 12%; animation: sweep-left 9s ease-in-out infinite alternate; }
+.searchlight.right { left: 88%; animation: sweep-right 9s ease-in-out infinite alternate; }
+/* Swing stays within view: each beam leans outward, then crosses over the ticket. */
+@keyframes sweep-left  { from { transform: rotate(-10deg); } to { transform: rotate(26deg); } }
+@keyframes sweep-right { from { transform: rotate(10deg); } to { transform: rotate(-26deg); } }
 
 .hero {
   min-height: min(92svh, 900px);
@@ -459,7 +469,8 @@ section { padding-block: clamp(48px, 8vw, 96px); }
   .ticket { grid-template-columns: 1fr; transform: none; -webkit-mask: none; mask: none; }
   @keyframes admit { from { transform: translateY(18px); opacity: 0; } to { transform: none; opacity: 1; } }
   .ticket-stub { border-left: 0; border-top: 4px dashed rgba(19, 14, 15, 0.55); padding-top: 28px; }
-  .searchlight { width: 60vmax; }
+  .searchlight.left { left: 4%; }
+  .searchlight.right { left: 96%; }
   .hero { min-height: 0; padding-bottom: 72px; }
   .marquee { padding: 26px 16px; }
   .col-type, .col-detail { display: none; }
