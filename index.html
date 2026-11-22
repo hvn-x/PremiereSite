@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Premiere: never miss a release</title>
   <meta name="description" content="A Discord bot that tells you when new anime episodes air and when movies, shows and games come out, at midnight where you live.">
-  <!-- EDIT: your Discord application ID (Developer Portal → General Information → Application ID). -->
-  <meta name="discord-application-id" content="YOUR_APPLICATION_ID">
+  <meta name="discord-application-id" content="1572778431991517194">
   <!-- Live numbers: the bot publishes stats.json next to this page. Empty hides the section. -->
   <meta name="premiere-stats-url" content="stats.json">
   <meta property="og:title" content="Premiere: never miss a release">
@@ -31,6 +30,7 @@
         <a class="nav-extra" href="#commands">Commands</a>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
+        <a class="nav-cta" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to Discord</a>
       </nav>
     </header>
 
@@ -39,11 +39,15 @@
         <div class="ticket">
           <div class="ticket-main">
             <h1 id="hero-title">Never miss a release</h1>
-            <p>Premiere tells you the moment new anime episodes air and when movies, shows and games come out, at midnight where you live.</p>
+            <p>The episode drops, the game unlocks, the movie hits streaming. Premiere tells you right then, in Discord, at your midnight. Free, with nothing to sign up for.</p>
           </div>
           <div class="ticket-stub">
-            <a class="btn btn-primary" data-invite="server" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
-            <a class="btn btn-secondary" data-invite="user" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
+            <p class="admit">Admit one</p>
+            <p class="admit-sub">Anime, movies, TV and games. Free.</p>
+            <a class="btn btn-primary" data-invite="server" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
+            <a class="btn btn-secondary" data-invite="user" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
+            <a class="stub-link" href="https://discord.gg/dvxegavKFR">Questions? Join the support server</a>
+            <div class="barcode" aria-hidden="true"><span></span><small>No. 000001</small></div>
           </div>
         </div>
       </div>
@@ -57,6 +61,32 @@
         <div class="board" id="board" aria-hidden="true"></div>
         <ul class="sr-only" id="board-text"></ul>
       </div>
+      <div class="pitch">
+        <p>That's your watchlist, flipping like this. Every anime, movie, show and game you follow, counted down to the minute and announced the moment it's out.</p>
+        <a class="btn btn-glow" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Start your board</a>
+      </div>
+    </section>
+
+    <section class="wrap why" aria-labelledby="why-title">
+      <h2 class="section-title" id="why-title">Why add Premiere</h2>
+      <dl class="promises">
+        <div>
+          <dt>Midnight. Your midnight.</dt>
+          <dd>Games and movies come out at midnight where you live, so that's when you hear about it. Set your timezone once and every countdown is yours.</dd>
+        </div>
+        <div>
+          <dt>Set it up once.</dt>
+          <dd>Import what you're watching from AniList, MyAnimeList or Trakt. Premiere keeps the list in sync every day, so new seasons show up on their own.</dd>
+        </div>
+        <div>
+          <dt>Never a spoiler-late DM.</dt>
+          <dd>Anime alerts land the minute an episode airs. Reminders an hour or a day early if you want them, and quiet hours if you don't.</dd>
+        </div>
+        <div>
+          <dt>Your whole server, too.</dt>
+          <dd>Post releases in a channel with a role ping, so the group chat knows the moment the raid patch or season finale drops.</dd>
+        </div>
+      </dl>
     </section>
 
     <section class="wrap" id="stats" aria-labelledby="stats-title" hidden>
@@ -142,6 +172,19 @@
         </ul>
       </div>
     </section>
+    <section class="wrap" aria-labelledby="closing-title">
+      <div class="closing">
+        <div>
+          <h2 id="closing-title">Your next release is already on its way</h2>
+          <p>Add Premiere and find out the moment it's here.</p>
+        </div>
+        <div class="closing-actions">
+          <a class="btn btn-primary" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
+          <a class="btn btn-secondary" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
+          <a class="stub-link" href="https://discord.gg/dvxegavKFR">Join the support server</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -149,6 +192,7 @@
       <div class="links">
         <a href="privacy.html">Privacy policy</a>
         <a href="terms.html">Terms of service</a>
+        <a href="https://discord.gg/dvxegavKFR">Support server</a>
       </div>
       <p>Data from AniList, IGDB (Twitch) and TMDB. Streaming availability from JustWatch via TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB. Premiere is not affiliated with Discord.</p>
     </div>
@@ -161,9 +205,9 @@
 
       // Discord invite links: fill in the application ID from the meta tag.
       var id = document.querySelector('meta[name="discord-application-id"]').content;
-      if (id && id !== "YOUR_APPLICATION_ID") {
+      if (id && id !== "1572778431991517194") {
         document.querySelectorAll("a[data-invite]").forEach(function (a) {
-          a.href = a.href.replace("YOUR_APPLICATION_ID", id);
+          a.href = a.href.replace("1572778431991517194", id);
         });
       }
 
