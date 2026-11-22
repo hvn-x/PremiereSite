@@ -131,12 +131,8 @@ code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
 @keyframes sweep-left  { from { transform: rotate(-10deg); } to { transform: rotate(26deg); } }
 @keyframes sweep-right { from { transform: rotate(10deg); } to { transform: rotate(-26deg); } }
 
-.hero {
-  min-height: min(92svh, 900px);
-  display: grid;
-  align-items: center;
-  padding-block: clamp(12px, 4vw, 40px) clamp(80px, 12vw, 150px);
-}
+.hero { padding-block: clamp(16px, 4vw, 44px) clamp(56px, 7vw, 84px); }
+#now-showing { padding-top: clamp(16px, 3vw, 32px); }
 
 /* ── The ticket ─────────────────────────────────────────────────────── */
 .ticket {
@@ -169,20 +165,25 @@ code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
 @keyframes admit { from { transform: translateY(40px) rotate(-6deg) scale(0.96); opacity: 0; } to { transform: rotate(-1.6deg); opacity: 1; } }
 @keyframes sheen { to { transform: translateX(120%); } }
 
-.ticket-main { padding: clamp(36px, 7vw, 88px) clamp(36px, 6vw, 84px); }
+.ticket-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 60px) clamp(32px, 5.5vw, 72px);
+}
 .ticket h1 {
-  margin: 0 0 22px;
-  font: 900 clamp(3.6rem, 11vw, 9.5rem)/0.84 var(--display);
+  margin: 0 0 20px;
+  font: 900 clamp(3.4rem, 8.4vw, 7.6rem)/0.86 var(--display);
   text-transform: uppercase;
-  max-width: 8.5ch;
+  max-width: 10ch;
 }
 .ticket p { margin: 0; max-width: 40ch; font-size: clamp(1.02rem, 1.6vw, 1.2rem); font-weight: 500; color: #2a1414; }
 .ticket-stub {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
-  padding: 36px clamp(26px, 4vw, 46px);
+  gap: 10px;
+  padding: clamp(26px, 3.4vw, 40px) clamp(26px, 4vw, 46px);
   border-left: 4px dashed rgba(19, 14, 15, 0.55);
 }
 
@@ -222,6 +223,24 @@ code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
 .btn-primary:hover { background: #000; color: #fff; }
 .btn-secondary { background: rgba(255, 243, 228, 0.42); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
 .btn-secondary:hover { background: rgba(255, 243, 228, 0.6); color: var(--ink); }
+
+/* ── House carpet: a faint deco fan pattern under everything below the stage ── */
+main { position: relative; isolation: isolate; }
+main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  --fan: radial-gradient(circle at 50% 100%,
+    var(--ink) 0 7px, var(--champagne) 7.5px 9px, var(--ink) 9.5px 16px,
+    var(--champagne) 16.5px 18px, var(--ink) 18.5px 25px, var(--champagne) 25.5px 27px,
+    var(--ink) 27.5px 28px, transparent 28.5px);
+  background: var(--fan) 0 0 / 56px 28px, var(--fan) 28px 14px / 56px 28px;
+  opacity: 0.06;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 360px, #000 calc(100% - 240px), transparent);
+          mask-image: linear-gradient(180deg, transparent 0, #000 360px, #000 calc(100% - 240px), transparent);
+}
 
 /* ── Section headings ───────────────────────────────────────────────── */
 section { padding-block: clamp(48px, 8vw, 96px); }
@@ -263,6 +282,23 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .marquee::before { --off: 0px; }
 .marquee::after { --off: 26px; animation-delay: -0.55s; }
 @keyframes bulbs { 0% { opacity: 1; } 50% { opacity: 0.28; } }
+/* With JS, bulbs are placed at equal steps along each side, corners included. */
+.marquee.has-bulbs::before, .marquee.has-bulbs::after { content: none; }
+.bulbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: opacity;
+  animation: bulbs 1.1s steps(1, end) infinite;
+}
+.bulbs-b { animation-delay: -0.55s; }
+.bulbs i {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  background: radial-gradient(circle, #fff3c4 0 3px, #ffd678 4px, rgba(255, 214, 120, 0.25) 6px, transparent 8px);
+}
 
 .marquee-title {
   margin: 0 0 18px;
@@ -487,7 +523,7 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .site-footer {
   position: relative;
   margin-top: 40px;
-  padding-block: 40px 52px;
+  padding-block: 60px 44px;
   color: var(--paper-dim);
   font-size: 0.9rem;
   background: linear-gradient(180deg, var(--ink), #1c0910);
@@ -502,9 +538,24 @@ section { padding-block: clamp(48px, 8vw, 96px); }
   background: radial-gradient(circle, #ffd678 0 3px, rgba(255, 214, 120, 0.25) 5px, transparent 6px) 0 0 / 24px 10px repeat-x;
   opacity: 0.8;
 }
-.site-footer .links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 14px; font-weight: 500; }
-.site-footer p { margin: 0; max-width: 90ch; }
-.site-footer .credits { margin-top: 10px; font-size: 0.82rem; opacity: 0.85; }
+.footer-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.footer-brand p { margin: 14px 0 0; max-width: 34ch; font-size: 0.98rem; }
+.footer-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.footer-cols h2 { margin: 0 0 14px; font: 800 1.25rem/1 var(--display); letter-spacing: 0.02em; color: var(--champagne); }
+.footer-cols ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.footer-cols a { color: var(--paper); font-weight: 500; text-decoration: none; }
+.footer-cols a:hover { color: var(--champagne); text-decoration: underline; }
+/* The perforation from the ticket, tearing off the fine print. */
+.footer-fine {
+  display: grid;
+  gap: 8px;
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 2px dashed rgba(255, 214, 120, 0.22);
+  font-size: 0.82rem;
+}
+.footer-fine p { margin: 0; max-width: 100ch; }
+.footer-fine .owner { color: var(--paper); font-size: 0.9rem; }
 
 /* ── Playbill: privacy policy and terms ─────────────────────────────── */
 .playbill-stage { padding-block: clamp(20px, 4vw, 48px) 80px; }
@@ -604,11 +655,13 @@ section { padding-block: clamp(48px, 8vw, 96px); }
   .filmstrip::after { right: 9px; }
   .letterboard li { grid-template-columns: 1fr; line-height: 30px; min-height: 0; padding-block: 3px; }
   .site-nav { gap: 14px; font-size: 0.9rem; }
+  .marquee { padding: 30px 22px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .ticket, .ticket::after, .searchlight, .marquee::before, .marquee::after, .flap.flip { animation: none; }
+  .ticket, .ticket::after, .searchlight, .marquee::before, .marquee::after, .bulbs, .flap.flip { animation: none; }
   .ticket::after { display: none; }
   .stub, .btn { transition: none; }
 }

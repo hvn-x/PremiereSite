@@ -188,14 +188,34 @@
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">
-      <div class="links">
-        <a href="privacy.html">Privacy policy</a>
-        <a href="terms.html">Terms of service</a>
-        <a href="https://discord.gg/dvxegavKFR">Support server</a>
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="./"><img src="assets/logo.png" alt="" width="46" height="46">Premiere</a>
+        <p>Release alerts for anime, movies, TV and games, right in Discord. Free, forever.</p>
       </div>
-      <p>Data from AniList, IGDB (Twitch) and TMDB. Streaming availability from JustWatch via TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB. Premiere is not affiliated with Discord.</p>
-      <p class="credits">Grand Theft Auto VI, Steel Ball Run: JoJo's Bizarre Adventure and Spider-Man: Brand New Day, their names and artwork are shown only as examples of Premiere's alerts. All copyrights and trademarks remain with their original owners. Premiere is not affiliated with, endorsed by or sponsored by them, or by any studio, publisher or service mentioned on this site.</p>
+      <nav class="footer-cols" aria-label="Footer">
+        <div>
+          <h2>Premiere</h2>
+          <ul>
+            <li><a data-invite="server" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a></li>
+            <li><a data-invite="user" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a></li>
+            <li><a href="./#commands">Commands</a></li>
+            <li><a href="https://discord.gg/dvxegavKFR">Support server</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="privacy.html">Privacy policy</a></li>
+            <li><a href="terms.html">Terms of service</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap footer-fine">
+      <p class="owner">&copy; 2026 Premiere. Not affiliated with Discord.</p>
+      <p>Data from AniList, IGDB (Twitch) and TMDB. Streaming availability from JustWatch via TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+      <p>Grand Theft Auto VI, Steel Ball Run: JoJo's Bizarre Adventure and Spider-Man: Brand New Day, their names and artwork are shown only as examples of Premiere's alerts. All copyrights and trademarks remain with their original owners. Premiere is not affiliated with, endorsed by or sponsored by them, or by any studio, publisher or service mentioned on this site.</p>
     </div>
   </footer>
 
@@ -294,6 +314,42 @@
           show(turn % ROWS, SHOWS[next++ % SHOWS.length], 0);
           turn++;
         }, 3200);
+      }
+
+      // ── Marquee bulbs: equal steps along every side ────────────────────
+      // Two interleaved sets take turns lighting up. Each side gets a whole
+      // number of steps, so the corners and the spacing always line up.
+      var marquee = document.querySelector(".marquee");
+      if (marquee && "ResizeObserver" in window) {
+        var sets = ["a", "b"].map(function (k) {
+          var d = document.createElement("div");
+          d.className = "bulbs bulbs-" + k;
+          d.setAttribute("aria-hidden", "true");
+          marquee.appendChild(d);
+          return d;
+        });
+        marquee.classList.add("has-bulbs");
+        var laid = "";
+        var layBulbs = function () {
+          var inset = marquee.clientWidth < 600 ? 14 : 16;
+          var w = marquee.clientWidth - 2 * inset, h = marquee.clientHeight - 2 * inset;
+          if (laid === w + "x" + h) return;
+          laid = w + "x" + h;
+          var nx = Math.max(2, Math.round(w / 26)), ny = Math.max(2, Math.round(h / 26));
+          var pts = [], i;
+          for (i = 0; i < nx; i++) pts.push([inset + w * i / nx, inset]);
+          for (i = 0; i < ny; i++) pts.push([inset + w, inset + h * i / ny]);
+          for (i = 0; i < nx; i++) pts.push([inset + w - w * i / nx, inset + h]);
+          for (i = 0; i < ny; i++) pts.push([inset, inset + h - h * i / ny]);
+          sets.forEach(function (s) { s.textContent = ""; });
+          pts.forEach(function (p, i) {
+            var b = document.createElement("i");
+            b.style.left = p[0].toFixed(2) + "px";
+            b.style.top = p[1].toFixed(2) + "px";
+            sets[i % 2].appendChild(b);
+          });
+        };
+        new ResizeObserver(layBulbs).observe(marquee);
       }
 
       // ── Steel Ball Run card: episode 2 counts down, then it's out ──────
