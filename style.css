@@ -76,7 +76,7 @@ code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
 .site-nav a.nav-cta {
   padding: 9px 16px;
   border-radius: 999px;
-  background: var(--champagne);
+  background: var(--ticket);
   color: var(--ink);
   font-weight: 700;
   box-shadow: 0 6px 24px -8px rgba(255, 214, 120, 0.6);
@@ -318,7 +318,7 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .pitch p { margin: 0; max-width: 58ch; font-size: 1.15rem; color: var(--paper); }
 .btn-glow {
   flex: none;
-  background: var(--champagne);
+  background: var(--ticket);
   color: var(--ink);
   padding-inline: 28px;
   box-shadow: 0 10px 40px -12px rgba(255, 214, 120, 0.7);
@@ -360,7 +360,7 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .closing h2 { margin: 0 0 10px; font: 900 clamp(2.4rem, 5.4vw, 4.2rem)/0.9 var(--display); text-transform: uppercase; }
 .closing p { margin: 0; color: #f0d9dc; font-size: 1.12rem; }
 .closing-actions { display: grid; gap: 12px; }
-.closing .btn-primary { background: var(--champagne); color: var(--ink); }
+.closing .btn-primary { background: var(--ticket); color: var(--ink); }
 .closing .btn-secondary { background: rgba(255, 243, 228, 0.12); color: var(--paper); box-shadow: inset 0 0 0 2px rgba(255, 243, 228, 0.7); }
 .closing .stub-link { color: var(--champagne); }
 
@@ -382,7 +382,6 @@ section { padding-block: clamp(48px, 8vw, 96px); }
   background: #0b0809;
   border-radius: 10px;
   box-shadow: 0 30px 80px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px #2a2022;
-  transform: rotate(0.6deg);
 }
 .filmstrip::before, .filmstrip::after {
   content: "";
@@ -397,6 +396,30 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .frame { margin: 0; padding-block: 14px; border-top: 2px solid #241b1d; }
 .frame:first-child { border-top: 0; }
 .frame img { width: 100%; border-radius: 6px; }
+
+/* Flip tiles laid over the episode 2 box of the Steel Ball Run card. Sizes are
+   percentages of the card image (900 x 250 design units), so they track it at
+   any width. */
+.countdown-card { position: relative; display: block; container-type: inline-size; }
+.countdown {
+  position: absolute;
+  left: 74.268%;
+  top: 66.8%;
+  width: 21.687%;
+  height: 14.703%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.259cqw;
+  pointer-events: none;
+}
+.countdown .flap {
+  width: auto;
+  height: auto;
+  border-radius: 0.333cqw;
+  background: linear-gradient(180deg, #2e2527 0 50%, #1b1516 50% 100%);
+  color: #ffd678;
+  font: 900 2.991cqw/1 var(--display);
+}
 .frame figcaption { margin-top: 10px; color: var(--paper-dim); font-size: 0.95rem; }
 .frame figcaption b { color: var(--paper); font-weight: 600; }
 
@@ -576,7 +599,7 @@ section { padding-block: clamp(48px, 8vw, 96px); }
   .pitch { flex-direction: column; align-items: stretch; }
   .promises > div { grid-template-columns: 1fr; }
   .closing { grid-template-columns: 1fr; }
-  .filmstrip { padding: 16px 40px; transform: none; }
+  .filmstrip { padding: 16px 40px; }
   .filmstrip::before { left: 9px; }
   .filmstrip::after { right: 9px; }
   .letterboard li { grid-template-columns: 1fr; line-height: 30px; min-height: 0; padding-block: 3px; }

@@ -109,7 +109,7 @@
           <figcaption><b>Launch day.</b> A game unlocks at midnight on release day, in your timezone, and you hear about it right then.</figcaption>
         </figure>
         <figure class="frame">
-          <a href="assets/card-anime.webp"><img src="assets/card-anime.webp" width="1800" height="500" loading="lazy" alt="Alert card: episode 1 of Steel Ball Run: JoJo's Bizarre Adventure has aired, with a countdown to episode 2."></a>
+          <a class="countdown-card" href="assets/card-anime.webp"><img src="assets/card-anime.webp" width="1800" height="500" loading="lazy" alt="Alert card: episode 1 of Steel Ball Run: JoJo's Bizarre Adventure has aired, and episode 2 is out now."><span class="countdown" aria-hidden="true" hidden></span></a>
           <figcaption><b>Every episode.</b> New anime episodes the minute they air, with a countdown to the next one.</figcaption>
         </figure>
         <figure class="frame">
@@ -294,6 +294,24 @@
           show(turn % ROWS, SHOWS[next++ % SHOWS.length], 0);
           turn++;
         }, 3200);
+      }
+
+      // ── Steel Ball Run card: episode 2 counts down, then it's out ──────
+      // Flip tiles laid exactly over the tiles in the card image. Without JS
+      // (or with reduced motion) the image itself already reads OUT NOW.
+      var cd = document.querySelector(".countdown");
+      if (cd && !reduce && "IntersectionObserver" in window) {
+        var cdCells = makeCells(cd, 7);
+        " IN 5S ".split("").forEach(function (ch, i) { cdCells[i].textContent = ch; });
+        cd.hidden = false;
+        var watch = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          watch.disconnect();
+          [" IN 4S ", " IN 3S ", " IN 2S ", " IN 1S ", "OUT NOW"].forEach(function (text, i) {
+            setTimeout(function () { flipTo(cdCells, text); }, 1000 * (i + 1));
+          });
+        }, { threshold: 0.75 });
+        watch.observe(cd.closest("figure"));
       }
 
       // ── Live numbers published by the bot ──────────────────────────────
