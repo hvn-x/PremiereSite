@@ -1,13 +1,13 @@
-/* Premiere — red carpet: champagne gold into crimson and velvet on warm black. */
+/* Premiere: red carpet. Champagne gold into crimson and velvet on warm black. */
 :root {
-  --ink: #130e0f;        /* page */
-  --ink-2: #1f1819;      /* raised surfaces */
+  --ink: #130e0f;
+  --ink-2: #1f1819;
   --line: #3a2a2d;
   --velvet: #881337;
   --crimson: #e11d48;
   --amber: #f5a524;
   --champagne: #ffd678;
-  --paper: #fbf3e4;      /* text */
+  --paper: #fbf3e4;
   --paper-dim: #c9b9b6;
   --ticket: linear-gradient(115deg, #ffd678 0%, #f5a524 34%, #ea5b38 62%, #e11d48 84%, #b8163f 100%);
 
@@ -19,8 +19,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-
-html { color-scheme: dark; }
+html { color-scheme: dark; scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -28,14 +27,13 @@ body {
   color: var(--paper);
   font: 400 1.0625rem/1.6 var(--body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 img { max-width: 100%; height: auto; display: block; }
-
-code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
-
 a { color: var(--champagne); text-underline-offset: 3px; }
 a:hover { color: #fff; }
+[hidden] { display: none !important; }
 
 :focus-visible {
   outline: 3px solid var(--champagne);
@@ -43,10 +41,7 @@ a:hover { color: #fff; }
   border-radius: 6px;
 }
 
-.wrap {
-  width: min(1120px, 100% - 2 * var(--gutter));
-  margin-inline: auto;
-}
+.wrap { width: min(1120px, 100% - 2 * var(--gutter)); margin-inline: auto; }
 
 /* ── Header ─────────────────────────────────────────────────────────── */
 .site-header {
@@ -56,7 +51,6 @@ a:hover { color: #fff; }
   gap: 16px;
   padding-block: 22px;
 }
-
 .brand {
   display: inline-flex;
   align-items: center;
@@ -64,52 +58,72 @@ a:hover { color: #fff; }
   color: var(--paper);
   text-decoration: none;
   font: 800 1.75rem/1 var(--display);
-  letter-spacing: 0.01em;
 }
 .brand img { width: 44px; height: 44px; }
-
 .site-nav { display: flex; gap: clamp(14px, 3vw, 28px); font-size: 0.95rem; }
 .site-nav a { color: var(--paper-dim); text-decoration: none; }
 .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--paper); }
 
-/* ── The ticket (hero) ──────────────────────────────────────────────── */
-.ticket {
-  --notch: 30px;
+/* ── Hero: a spotlight on the ticket ────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: min(100svh, 920px);
   display: grid;
-  grid-template-columns: 1fr minmax(240px, 32%);
-  margin-block: clamp(20px, 6vw, 64px) clamp(48px, 9vw, 104px);
+  align-items: center;
+  padding-block: clamp(24px, 5vw, 56px) clamp(56px, 9vw, 110px);
+  isolation: isolate;
+}
+
+/* A soft beam from above, like a premiere searchlight. Mostly off-screen. */
+.spotlight {
+  position: absolute;
+  inset: -10% 0 auto;
+  height: 120%;
+  z-index: -1;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(255, 214, 120, 0.22), transparent 70%),
+    conic-gradient(from 178deg at 50% 0%, transparent 0deg, rgba(225, 29, 72, 0.14) 14deg, transparent 30deg,
+                   transparent 330deg, rgba(225, 29, 72, 0.14) 346deg, transparent 360deg);
+  filter: blur(8px);
+  animation: beam 2400ms ease-out both;
+  pointer-events: none;
+}
+@keyframes beam { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: none; } }
+
+.ticket {
+  --notch: clamp(22px, 3.2vw, 34px);
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 30%);
   background: var(--ticket);
   color: var(--ink);
-  border-radius: 26px;
-  /* Side notches, like the logo. */
+  border-radius: 28px;
+  /* Notches on both sides, like the logo. */
   -webkit-mask:
     radial-gradient(circle at 0 50%, transparent var(--notch), #000 calc(var(--notch) + 1px)) left / 51% 100% no-repeat,
     radial-gradient(circle at 100% 50%, transparent var(--notch), #000 calc(var(--notch) + 1px)) right / 51% 100% no-repeat;
           mask:
     radial-gradient(circle at 0 50%, transparent var(--notch), #000 calc(var(--notch) + 1px)) left / 51% 100% no-repeat,
     radial-gradient(circle at 100% 50%, transparent var(--notch), #000 calc(var(--notch) + 1px)) right / 51% 100% no-repeat;
+  box-shadow: 0 40px 120px -30px rgba(225, 29, 72, 0.55);
   transform: rotate(-1.2deg);
-  animation: admit 900ms cubic-bezier(.2, .8, .2, 1) both;
+  animation: admit 1000ms cubic-bezier(.2, .8, .2, 1) 150ms both;
 }
-
 @keyframes admit {
-  from { transform: translateY(18px) rotate(-4deg); opacity: 0; }
+  from { transform: translateY(26px) rotate(-4deg); opacity: 0; }
   to   { transform: rotate(-1.2deg); opacity: 1; }
 }
 
-.ticket-main { padding: clamp(32px, 6vw, 72px) clamp(36px, 6vw, 80px); }
+.ticket-main { padding: clamp(36px, 7vw, 88px) clamp(36px, 6vw, 84px); }
 
 .ticket h1 {
-  margin: 0 0 18px;
-  font: 900 clamp(3.2rem, 9vw, 7.25rem)/0.88 var(--display);
+  margin: 0 0 22px;
+  font: 900 clamp(3.6rem, 11vw, 9rem)/0.86 var(--display);
   text-transform: uppercase;
-  letter-spacing: -0.005em;
-  max-width: 9ch;
+  max-width: 8.5ch;
 }
-
 .ticket p {
   margin: 0;
-  max-width: 44ch;
+  max-width: 40ch;
   font-size: clamp(1.02rem, 1.6vw, 1.2rem);
   font-weight: 500;
   color: #2a1414;
@@ -120,13 +134,13 @@ a:hover { color: #fff; }
   flex-direction: column;
   justify-content: center;
   gap: 14px;
-  padding: 36px clamp(28px, 4vw, 48px);
+  padding: 36px clamp(26px, 4vw, 46px);
   border-left: 4px dashed rgba(19, 14, 15, 0.55);
 }
 
 .btn {
   display: block;
-  padding: 15px 20px;
+  padding: 16px 20px;
   border-radius: 12px;
   text-align: center;
   text-decoration: none;
@@ -141,37 +155,56 @@ a:hover { color: #fff; }
 .btn-secondary { background: rgba(255, 243, 228, 0.42); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
 .btn-secondary:hover { background: rgba(255, 243, 228, 0.6); color: var(--ink); }
 
+/* ── Live stats ─────────────────────────────────────────────────────── */
+.stats { padding-block: clamp(20px, 4vw, 40px) clamp(40px, 6vw, 72px); }
+.stats h2 { margin-bottom: 28px; }
+.stat-grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-top: 2px solid var(--crimson);
+}
+.stat-grid > div { padding: 22px 20px 0 0; }
+.stat-grid > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.stat-grid dt { color: var(--paper-dim); font-size: 0.98rem; }
+.stat-grid dd {
+  margin: 4px 0 0;
+  font: 900 clamp(3.2rem, 7vw, 5.6rem)/0.9 var(--display);
+  color: var(--champagne);
+  font-variant-numeric: tabular-nums;
+}
+.stat-grid > div:nth-child(3) dd { color: var(--crimson); }
+.stat-grid > div:nth-child(4) dd { color: var(--paper); }
+.stats-note { margin: 18px 0 0; color: var(--paper-dim); font-size: 0.92rem; }
+
 /* ── Sections ───────────────────────────────────────────────────────── */
 section { padding-block: clamp(36px, 6vw, 72px); }
-
 h2 {
   margin: 0 0 12px;
   font: 800 clamp(2.2rem, 5vw, 3.4rem)/0.95 var(--display);
-  letter-spacing: 0.005em;
 }
-
 .lede { margin: 0 0 32px; max-width: var(--measure); color: var(--paper-dim); }
 
-/* Alert examples: the real images the bot sends. */
 .showcase { display: grid; gap: 28px; }
 .showcase figure { margin: 0; }
-.showcase img { width: 100%; max-width: 900px; }
+.showcase img { width: 100%; max-width: 900px; border-radius: 14px; }
 .showcase figcaption { margin-top: 8px; color: var(--paper-dim); font-size: 0.95rem; }
 
-/* What it follows: a plain definition list, not cards. */
 .sources { margin: 0; display: grid; grid-template-columns: max-content 1fr; column-gap: 32px; }
 .sources dt, .sources dd { padding-block: 16px; border-top: 1px solid var(--line); margin: 0; }
 .sources dt { font: 800 1.6rem/1.1 var(--display); color: var(--champagne); }
 .sources dd { color: var(--paper); max-width: var(--measure); }
 .sources dd span { color: var(--paper-dim); }
 
-/* Commands */
 .commands { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
 .commands li { padding-block: 12px; border-top: 1px solid var(--line); }
 .commands code { font-size: 0.98rem; margin-right: 8px; }
 .commands li span { color: var(--paper-dim); }
 
-/* ── Long-form pages (privacy, terms) ───────────────────────────────── */
+code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
+
+/* ── Long-form pages ────────────────────────────────────────────────── */
 .doc { max-width: 72ch; padding-block: clamp(24px, 5vw, 56px) 72px; }
 .doc h1 { margin: 0 0 6px; font: 900 clamp(2.8rem, 7vw, 4.5rem)/0.92 var(--display); text-transform: uppercase; }
 .doc .updated { margin: 0 0 36px; color: var(--paper-dim); }
@@ -182,19 +215,17 @@ h2 {
 .doc th { color: var(--champagne); font-weight: 600; }
 
 /* ── Footer ─────────────────────────────────────────────────────────── */
-.site-footer {
-  border-top: 1px solid var(--line);
-  padding-block: 32px 48px;
-  color: var(--paper-dim);
-  font-size: 0.9rem;
-}
+.site-footer { border-top: 1px solid var(--line); padding-block: 32px 48px; color: var(--paper-dim); font-size: 0.9rem; }
 .site-footer .links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 14px; }
 .site-footer p { margin: 0; max-width: 90ch; }
 
 /* ── Small screens ──────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+  .stat-grid > div:nth-child(3) { padding-left: 0; border-left: 0; }
+}
 @media (max-width: 760px) {
-  .ticket { grid-template-columns: 1fr; transform: none; --notch: 22px;
-    -webkit-mask: none; mask: none; }
+  .ticket { grid-template-columns: 1fr; transform: none; --notch: 20px; -webkit-mask: none; mask: none; }
   @keyframes admit { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
   .ticket-stub { border-left: 0; border-top: 4px dashed rgba(19, 14, 15, 0.55); padding-top: 28px; }
   .sources { grid-template-columns: 1fr; }
@@ -204,6 +235,7 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ticket { animation: none; }
+  html { scroll-behavior: auto; }
+  .ticket, .spotlight { animation: none; }
   .btn { transition: none; }
 }

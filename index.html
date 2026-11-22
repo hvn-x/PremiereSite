@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Premiere: release-day alerts for Discord</title>
+  <title>Premiere: never miss a release</title>
   <meta name="description" content="A Discord bot that tells you when new anime episodes air and when movies, shows and games come out, at midnight where you live.">
   <!-- EDIT: your Discord application ID (Developer Portal → General Information → Application ID). -->
   <meta name="discord-application-id" content="YOUR_APPLICATION_ID">
-  <meta property="og:title" content="Premiere">
+  <!-- EDIT: the public stats address, served over HTTPS (see docs/README.md). Leave as-is to hide the live numbers. -->
+  <meta name="premiere-stats-url" content="">
+  <meta property="og:title" content="Premiere: never miss a release">
   <meta property="og:description" content="Release-day alerts in Discord for anime, movies, TV and games.">
   <meta property="og:image" content="assets/og.png">
   <meta name="theme-color" content="#e11d48">
@@ -28,18 +30,32 @@
   </header>
 
   <main>
-    <div class="wrap">
-      <div class="ticket">
-        <div class="ticket-main">
-          <h1>Never miss a release day</h1>
-          <p>Premiere is a Discord bot that tells you when new anime episodes air and when movies, shows and games come out, at midnight where you live.</p>
-        </div>
-        <div class="ticket-stub">
-          <a class="btn btn-primary" data-invite="server" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
-          <a class="btn btn-secondary" data-invite="user" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="spotlight" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="ticket">
+          <div class="ticket-main">
+            <h1 id="hero-title">Never miss a release</h1>
+            <p>Premiere tells you the moment new anime episodes air and when movies, shows and games come out, at midnight where you live.</p>
+          </div>
+          <div class="ticket-stub">
+            <a class="btn btn-primary" data-invite="server" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
+            <a class="btn btn-secondary" data-invite="user" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <section class="stats wrap" id="stats" aria-labelledby="stats-title" hidden>
+      <h2 id="stats-title">Running right now</h2>
+      <dl class="stat-grid">
+        <div><dt>Titles tracked</dt><dd data-stat="titles">0</dd></div>
+        <div><dt>Alerts sent</dt><dd data-stat="alerts_sent">0</dd></div>
+        <div><dt>Reminders sent</dt><dd data-stat="reminders_sent">0</dd></div>
+        <div><dt>Servers</dt><dd data-stat="servers_online">0</dd></div>
+      </dl>
+      <p class="stats-note" id="stats-note"></p>
+    </section>
 
     <section class="wrap" aria-labelledby="examples">
       <h2 id="examples">What an alert looks like</h2>
@@ -104,13 +120,43 @@
   </footer>
 
   <script>
-    // Fill the invite links from the one application ID set in <head>.
     (function () {
+      // Discord invite links: fill in the application ID from the meta tag.
       var id = document.querySelector('meta[name="discord-application-id"]').content;
-      if (!id || id === "YOUR_APPLICATION_ID") return;
-      document.querySelectorAll("a[data-invite]").forEach(function (a) {
-        a.href = a.href.replace("YOUR_APPLICATION_ID", id);
-      });
+      if (id && id !== "YOUR_APPLICATION_ID") {
+        document.querySelectorAll("a[data-invite]").forEach(function (a) {
+          a.href = a.href.replace("YOUR_APPLICATION_ID", id);
+        });
+      }
+
+      // Live numbers from the bot. If the bot isn't reachable, the section stays hidden.
+      var url = document.querySelector('meta[name="premiere-stats-url"]').content;
+      if (!url) return;
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function countUp(el, to) {
+        if (reduce || to === 0) { el.textContent = to.toLocaleString(); return; }
+        var start = performance.now(), dur = 1400;
+        (function frame(now) {
+          var t = Math.min(1, (now - start) / dur), eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(to * eased).toLocaleString();
+          if (t < 1) requestAnimationFrame(frame);
+        })(start);
+      }
+
+      fetch(url, { cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (data) {
+          var section = document.getElementById("stats");
+          document.querySelectorAll("[data-stat]").forEach(function (el) {
+            countUp(el, Number(data[el.dataset.stat]) || 0);
+          });
+          var mins = Math.max(0, Math.round((Date.now() / 1000 - data.updated_at) / 60));
+          document.getElementById("stats-note").textContent =
+            "Live from the bot. Updated " + (mins < 2 ? "just now" : mins + " minutes ago") + ".";
+          section.hidden = false;
+        })
+        .catch(function () { /* stats are optional: keep the section hidden */ });
     })();
   </script>
 </body>
