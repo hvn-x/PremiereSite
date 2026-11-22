@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premiere: release-day alerts for Discord</title>
+  <meta name="description" content="A Discord bot that tells you when new anime episodes air and when movies, shows and games come out, at midnight where you live.">
+  <!-- EDIT: your Discord application ID (Developer Portal → General Information → Application ID). -->
+  <meta name="discord-application-id" content="YOUR_APPLICATION_ID">
+  <meta property="og:title" content="Premiere">
+  <meta property="og:description" content="Release-day alerts in Discord for anime, movies, TV and games.">
+  <meta property="og:image" content="assets/og.png">
+  <meta name="theme-color" content="#e11d48">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header wrap">
+    <a class="brand" href="./"><img src="assets/logo.png" alt="" width="44" height="44">Premiere</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="#commands">Commands</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="ticket">
+        <div class="ticket-main">
+          <h1>Never miss a release day</h1>
+          <p>Premiere is a Discord bot that tells you when new anime episodes air and when movies, shows and games come out, at midnight where you live.</p>
+        </div>
+        <div class="ticket-stub">
+          <a class="btn btn-primary" data-invite="server" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
+          <a class="btn btn-secondary" data-invite="user" href="https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="wrap" aria-labelledby="examples">
+      <h2 id="examples">What an alert looks like</h2>
+      <p class="lede">Every alert is a card with the cover art, the date in your timezone, and a countdown to what's next. A button underneath opens the title or shows where to watch it.</p>
+      <div class="showcase">
+        <figure>
+          <a href="assets/card-release.webp"><img src="assets/card-release.webp" width="1800" height="500" loading="lazy" alt="Alert card: Hollow Orbit, a game, is out now. Released Nov 19, 2026 on PS5 and Xbox Series X."></a>
+          <figcaption>A game comes out at midnight on its release day, in your timezone.</figcaption>
+        </figure>
+        <figure>
+          <a href="assets/card-reminder.webp"><img src="assets/card-reminder.webp" width="1800" height="500" loading="lazy" alt="Reminder card: episode 8 of Lanterns of Kuroshima airs in 1 hour, at 6:30 PM EST."></a>
+          <figcaption>Reminders an hour or a day before, if you want them.</figcaption>
+        </figure>
+        <figure>
+          <a href="assets/card-streaming.webp"><img src="assets/card-streaming.webp" width="1800" height="500" loading="lazy" alt="Alert card: the movie The Last Projectionist is now streaming on Max."></a>
+          <figcaption>When a movie you're waiting for reaches a streaming service.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="follows">
+      <h2 id="follows">What it follows</h2>
+      <p class="lede">Search for anything with <code>/track</code> and pick it from the list. Alerts go to your DMs, or to a server channel with an optional ping.</p>
+      <dl class="sources">
+        <dt>Anime</dt>
+        <dd>Every new episode, at the minute it airs. <span>From AniList. You can import what you're watching from AniList or MyAnimeList.</span></dd>
+        <dt>Movies</dt>
+        <dd>In theaters, digital release, and the day it lands on a streaming service. <span>From TMDB.</span></dd>
+        <dt>TV</dt>
+        <dd>New episodes and new season premieres. Whole-season drops arrive as one alert. <span>From TMDB. You can import a Trakt watchlist.</span></dd>
+        <dt>Games</dt>
+        <dd>Launch day, ports to new platforms, and release-date changes. <span>From IGDB.</span></dd>
+        <dt>News</dt>
+        <dd>A Steam game's news and patch notes, a YouTube channel's uploads, a subreddit, or any website with a feed. Type the name and Premiere finds the feed.</dd>
+      </dl>
+    </section>
+
+    <section class="wrap" id="commands" aria-labelledby="commands-title">
+      <h2 id="commands-title">Commands</h2>
+      <p class="lede">Server commands need the Manage Server permission. Everything else works for anyone, including in DMs.</p>
+      <ul class="commands">
+        <li><code>/track</code><span>Follow an anime, movie, show, game or feed</span></li>
+        <li><code>/list</code><span>Everything you follow, with countdowns</span></li>
+        <li><code>/untrack</code><span>Stop following something</span></li>
+        <li><code>/sync</code><span>Import from AniList, MyAnimeList or Trakt</span></li>
+        <li><code>/timezone</code><span>Set your timezone for release times</span></li>
+        <li><code>/settings</code><span>Reminders, quiet hours, and which alerts you get</span></li>
+        <li><code>/server setup</code><span>Choose where server alerts go</span></li>
+        <li><code>/delete-my-data</code><span>Erase everything stored about you</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="links">
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms of service</a>
+      </div>
+      <p>Data from AniList, IGDB (Twitch) and TMDB. Streaming availability from JustWatch via TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB. Premiere is not affiliated with Discord.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Fill the invite links from the one application ID set in <head>.
+    (function () {
+      var id = document.querySelector('meta[name="discord-application-id"]').content;
+      if (!id || id === "YOUR_APPLICATION_ID") return;
+      document.querySelectorAll("a[data-invite]").forEach(function (a) {
+        a.href = a.href.replace("YOUR_APPLICATION_ID", id);
+      });
+    })();
+  </script>
+</body>
+</html>
