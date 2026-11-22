@@ -12,7 +12,9 @@
   <meta property="og:description" content="Release-day alerts in Discord for anime, movies, TV and games.">
   <meta property="og:image" content="assets/og.png">
   <meta name="theme-color" content="#881337">
-  <link rel="icon" href="assets/favicon.png">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -69,24 +71,68 @@
 
     <section class="wrap why" aria-labelledby="why-title">
       <h2 class="section-title" id="why-title">Why add Premiere</h2>
-      <dl class="promises">
-        <div>
-          <dt>Midnight. Your midnight.</dt>
-          <dd>Games and movies come out at midnight where you live, so that's when you hear about it. Set your timezone once and every countdown is yours.</dd>
-        </div>
-        <div>
-          <dt>Set it up once.</dt>
-          <dd>Import what you're watching from AniList, MyAnimeList or Trakt. Premiere keeps the list in sync every day, so new seasons show up on their own.</dd>
-        </div>
-        <div>
-          <dt>Never a spoiler-late DM.</dt>
-          <dd>Anime alerts land the minute an episode airs. Reminders an hour or a day early if you want them, and quiet hours if you don't.</dd>
-        </div>
-        <div>
-          <dt>Your whole server, too.</dt>
-          <dd>Post releases in a channel with a role ping, so the group chat knows the moment the raid patch or season finale drops.</dd>
-        </div>
-      </dl>
+      <div class="lobby">
+        <article class="case case-midnight">
+          <div class="case-show" aria-hidden="true">
+            <div class="clock" data-cities="Tokyo,London,New York,Sydney,Berlin,Los Angeles">
+              <div class="clock-time"></div>
+              <div class="clock-city"></div>
+            </div>
+          </div>
+          <h3>Midnight. Your midnight.</h3>
+          <p>Games and movies come out at midnight where you live, so that's when you hear about it. Set your timezone once and every countdown is yours.</p>
+        </article>
+
+        <article class="case case-free">
+          <div class="case-show" aria-hidden="true">
+            <div class="mini-ticket">
+              <span class="mini-price"><small>Price</small>0.00</span>
+              <span class="mini-admit">Admit everyone</span>
+            </div>
+          </div>
+          <h3>Free, forever.</h3>
+          <p>Every feature, for everyone. No premium tier, no votes to unlock things, no account to make.</p>
+        </article>
+
+        <article class="case case-sync">
+          <div class="case-show" aria-hidden="true">
+            <ul class="sources"><li>AniList</li><li>MyAnimeList</li><li>Trakt</li></ul>
+            <span class="sync-line"></span>
+            <span class="sync-to">Your list, synced daily</span>
+          </div>
+          <h3>Set it up once.</h3>
+          <p>Import what you're watching from AniList, MyAnimeList or Trakt. Premiere keeps the list in sync every day, so new seasons show up on their own.</p>
+        </article>
+
+        <article class="case case-dm">
+          <div class="case-show" aria-hidden="true">
+            <div class="msg">
+              <img src="assets/logo.png" alt="" width="36" height="36">
+              <div>
+                <p class="msg-head"><b>Premiere</b><span class="app-tag">App</span><span class="msg-time">Today at 00:00</span></p>
+                <p class="msg-body">Episode 9 is out.</p>
+              </div>
+            </div>
+          </div>
+          <h3>Right on time.</h3>
+          <p>Anime alerts land the minute an episode airs. Reminders an hour or a day early if you want them, and quiet hours if you don't.</p>
+        </article>
+
+        <article class="case case-server">
+          <div class="case-show" aria-hidden="true">
+            <p class="channel"># releases</p>
+            <div class="msg">
+              <img src="assets/logo.png" alt="" width="36" height="36">
+              <div>
+                <p class="msg-head"><b>Premiere</b><span class="app-tag">App</span><span class="msg-time">Today at 00:00</span></p>
+                <p class="msg-body"><span class="role">@Raid Night</span> Hollow Orbit is out now.</p>
+              </div>
+            </div>
+          </div>
+          <h3>Your whole server, too.</h3>
+          <p>Post releases in a channel with a role ping, so the group chat knows the moment the raid patch or season finale drops.</p>
+        </article>
+      </div>
     </section>
 
     <section class="wrap" id="stats" aria-labelledby="stats-title" hidden>
@@ -350,6 +396,27 @@
           });
         };
         new ResizeObserver(layBulbs).observe(marquee);
+      }
+
+      // ── Midnight clock: it's 00:00 somewhere, city after city ──────────
+      var clock = document.querySelector(".clock");
+      if (clock) {
+        var cities = clock.dataset.cities.split(",");
+        var timeCells = makeCells(clock.querySelector(".clock-time"), 5);
+        var cityCells = makeCells(clock.querySelector(".clock-city"), 11);
+        flipTo(timeCells, "00:00");
+        if (reduce) {
+          flipTo(cityCells, "YOUR TIME");
+        } else {
+          var ci = 0;
+          var nextCity = function () {
+            var name = cities[ci++ % cities.length].toUpperCase();
+            var pad = Math.floor((11 - name.length) / 2);
+            flipTo(cityCells, " ".repeat(pad) + name);
+          };
+          nextCity();
+          setInterval(nextCity, 2800);
+        }
       }
 
       // ── Steel Ball Run card: episode 2 counts down, then it's out ──────
