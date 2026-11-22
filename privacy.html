@@ -12,22 +12,43 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header wrap">
+  <div class="stage stage-short">
+    <div class="searchlight left" aria-hidden="true"></div>
+    <div class="searchlight right" aria-hidden="true"></div>
+    <header class="site-header wrap">
     <a class="brand" href="./"><img src="assets/logo.png" alt="" width="44" height="44">Premiere</a>
     <nav class="site-nav" aria-label="Site">
-      <a href="./#commands">Commands</a>
+      <a class="nav-extra" href="./#now-showing">Now showing</a>
+      <a class="nav-extra" href="./#commands">Commands</a>
       <a href="privacy.html" aria-current="page">Privacy</a>
       <a href="terms.html">Terms</a>
     </nav>
   </header>
+  </div>
 
-  <main class="wrap doc">
-    <h1>Privacy policy</h1>
-    <p class="updated">Last updated November 19, 2026</p>
+  <main class="wrap playbill-stage">
+      <div class="playbill-layout">
+        <nav class="toc" aria-label="On this page">
+          <p>In this programme</p>
+          <ol>
+          <li><a href="#what-premiere-stores">What Premiere stores</a></li>
+          <li><a href="#who-else-sees-it">Who else sees it</a></li>
+          <li><a href="#where-its-kept">Where it's kept</a></li>
+          <li><a href="#how-to-delete-it">How to delete it</a></li>
+          <li><a href="#children">Children</a></li>
+          <li><a href="#changes">Changes</a></li>
+          <li><a href="#contact">Contact</a></li>
+          </ol>
+        </nav>
+        <article class="playbill">
+          <header class="playbill-band">
+            <small>Premiere presents</small>
+            <h1>Privacy policy</h1>
+            <p class="updated">Last updated November 19, 2026</p>
+          </header>
+<p>Premiere is a Discord bot that sends alerts when anime, movies, TV shows and games come out. This page explains what it stores, why, and how to remove it. It stores only what it needs to send you alerts, and it never reads your messages.</p>
 
-    <p>Premiere is a Discord bot that sends alerts when anime, movies, TV shows and games come out. This page explains what it stores, why, and how to remove it. It stores only what it needs to send you alerts, and it never reads your messages.</p>
-
-    <h2>What Premiere stores</h2>
+    <h2 id="what-premiere-stores">What Premiere stores</h2>
     <table>
       <thead><tr><th scope="col">Data</th><th scope="col">Why</th></tr></thead>
       <tbody>
@@ -43,14 +64,15 @@
 
     <p>Premiere does not store message content, email addresses, IP addresses or your Discord profile. In role-DM mode it looks up which members have the chosen role when sending an alert. That list is kept in memory for up to 15 minutes and is not saved.</p>
 
-    <h2>Who else sees it</h2>
+    <h2 id="who-else-sees-it">Who else sees it</h2>
     <p>To find titles and check for releases, the bot's server sends requests to AniList, TMDB, IGDB (Twitch), MyAnimeList and Trakt, and to the websites of any RSS feeds you add. These services receive what you searched for and, when you use <code>/sync</code>, the username you entered. They don't receive your Discord identity. Cover images are downloaded from the same services.</p>
     <p>Alerts are delivered through Discord, so <a href="https://discord.com/privacy">Discord's privacy policy</a> also applies. Premiere doesn't sell or share your data with anyone else, and it doesn't use analytics or ads.</p>
+    <p>The website shows overall totals, such as how many titles are tracked and how many alerts have been sent. These are counts only and never identify anyone.</p>
 
-    <h2>Where it's kept</h2>
+    <h2 id="where-its-kept">Where it's kept</h2>
     <p>On the server that runs this copy of Premiere, in a database file that only the bot's operator can access. Server logs may briefly include Discord IDs when something goes wrong; logs are rotated and kept for a short time.</p>
 
-    <h2>How to delete it</h2>
+    <h2 id="how-to-delete-it">How to delete it</h2>
     <ul>
       <li><code>/untrack</code> removes a single title, and <code>/unsync</code> unlinks an AniList, MyAnimeList or Trakt account.</li>
       <li><code>/delete-my-data</code> erases everything Premiere stores about you, including alerts waiting to be sent.</li>
@@ -58,16 +80,18 @@
     </ul>
     <p>Anything you don't delete is kept until you do, so your alerts keep working.</p>
 
-    <h2>Children</h2>
+    <h2 id="children">Children</h2>
     <p>Premiere is meant for people old enough to use Discord under <a href="https://discord.com/terms">Discord's terms</a>.</p>
 
-    <h2>Changes</h2>
+    <h2 id="changes">Changes</h2>
     <p>If this policy changes, the date at the top will change too. Significant changes will be announced where the bot is used.</p>
 
-    <h2>Contact</h2>
+    <h2 id="contact">Contact</h2>
     <!-- EDIT: replace with your contact email or support server invite. -->
     <p>Questions or requests: <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a>.</p>
-  </main>
+        </article>
+      </div>
+    </main>
 
   <footer class="site-footer">
     <div class="wrap">

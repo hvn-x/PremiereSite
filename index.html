@@ -7,12 +7,12 @@
   <meta name="description" content="A Discord bot that tells you when new anime episodes air and when movies, shows and games come out, at midnight where you live.">
   <!-- EDIT: your Discord application ID (Developer Portal → General Information → Application ID). -->
   <meta name="discord-application-id" content="YOUR_APPLICATION_ID">
-  <!-- Live numbers: the bot publishes stats.json next to this page (see docs/README.md). Empty hides the section. -->
+  <!-- Live numbers: the bot publishes stats.json next to this page. Empty hides the section. -->
   <meta name="premiere-stats-url" content="stats.json">
   <meta property="og:title" content="Premiere: never miss a release">
   <meta property="og:description" content="Release-day alerts in Discord for anime, movies, TV and games.">
   <meta property="og:image" content="assets/og.png">
-  <meta name="theme-color" content="#e11d48">
+  <meta name="theme-color" content="#881337">
   <link rel="icon" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,18 +20,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header wrap">
-    <a class="brand" href="./"><img src="assets/logo.png" alt="" width="44" height="44">Premiere</a>
-    <nav class="site-nav" aria-label="Site">
-      <a href="#commands">Commands</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-    </nav>
-  </header>
+  <div class="stage">
+    <div class="searchlight left" aria-hidden="true"></div>
+    <div class="searchlight right" aria-hidden="true"></div>
 
-  <main>
+    <header class="site-header wrap">
+      <a class="brand" href="./"><img src="assets/logo.png" alt="" width="46" height="46">Premiere</a>
+      <nav class="site-nav" aria-label="Site">
+        <a class="nav-extra" href="#now-showing">Now showing</a>
+        <a class="nav-extra" href="#commands">Commands</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </header>
+
     <section class="hero" aria-labelledby="hero-title">
-      <div class="spotlight" aria-hidden="true"></div>
       <div class="wrap">
         <div class="ticket">
           <div class="ticket-main">
@@ -45,67 +48,99 @@
         </div>
       </div>
     </section>
+  </div>
 
-    <section class="stats wrap" id="stats" aria-labelledby="stats-title" hidden>
-      <h2 id="stats-title">Running right now</h2>
+  <main>
+    <section class="wrap" id="now-showing" aria-labelledby="now-showing-title">
+      <div class="marquee">
+        <h2 class="marquee-title" id="now-showing-title">Now showing</h2>
+        <div class="board" id="board" aria-hidden="true"></div>
+        <ul class="sr-only" id="board-text"></ul>
+      </div>
+    </section>
+
+    <section class="wrap" id="stats" aria-labelledby="stats-title" hidden>
+      <h2 class="section-title" id="stats-title">Running right now</h2>
       <dl class="stat-grid">
-        <div><dt>Titles tracked</dt><dd data-stat="titles">0</dd></div>
-        <div><dt>Alerts sent</dt><dd data-stat="alerts_sent">0</dd></div>
-        <div><dt>Reminders sent</dt><dd data-stat="reminders_sent">0</dd></div>
-        <div><dt>Servers</dt><dd data-stat="servers_online">0</dd></div>
+        <div><dt>Titles tracked</dt><dd data-stat="titles"></dd></div>
+        <div><dt>Alerts sent</dt><dd data-stat="alerts_sent"></dd></div>
+        <div><dt>Reminders sent</dt><dd data-stat="reminders_sent"></dd></div>
+        <div><dt>Servers</dt><dd data-stat="servers_online"></dd></div>
       </dl>
       <p class="stats-note" id="stats-note"></p>
     </section>
 
     <section class="wrap" aria-labelledby="examples">
-      <h2 id="examples">What an alert looks like</h2>
+      <h2 class="section-title" id="examples">What an alert looks like</h2>
       <p class="lede">Every alert is a card with the cover art, the date in your timezone, and a countdown to what's next. A button underneath opens the title or shows where to watch it.</p>
-      <div class="showcase">
-        <figure>
+      <div class="filmstrip">
+        <figure class="frame">
           <a href="assets/card-release.webp"><img src="assets/card-release.webp" width="1800" height="500" loading="lazy" alt="Alert card: Hollow Orbit, a game, is out now. Released Nov 19, 2026 on PS5 and Xbox Series X."></a>
-          <figcaption>A game comes out at midnight on its release day, in your timezone.</figcaption>
+          <figcaption><b>Out now.</b> A game comes out at midnight on its release day, in your timezone.</figcaption>
         </figure>
-        <figure>
+        <figure class="frame">
           <a href="assets/card-reminder.webp"><img src="assets/card-reminder.webp" width="1800" height="500" loading="lazy" alt="Reminder card: episode 8 of Lanterns of Kuroshima airs in 1 hour, at 6:30 PM EST."></a>
-          <figcaption>Reminders an hour or a day before, if you want them.</figcaption>
+          <figcaption><b>Reminders.</b> An hour or a day before, if you want them.</figcaption>
         </figure>
-        <figure>
+        <figure class="frame">
           <a href="assets/card-streaming.webp"><img src="assets/card-streaming.webp" width="1800" height="500" loading="lazy" alt="Alert card: the movie The Last Projectionist is now streaming on Max."></a>
-          <figcaption>When a movie you're waiting for reaches a streaming service.</figcaption>
+          <figcaption><b>Where to watch.</b> When a movie you're waiting for reaches a streaming service.</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="wrap" aria-labelledby="follows">
-      <h2 id="follows">What it follows</h2>
+      <h2 class="section-title" id="follows">What it follows</h2>
       <p class="lede">Search for anything with <code>/track</code> and pick it from the list. Alerts go to your DMs, or to a server channel with an optional ping.</p>
-      <dl class="sources">
-        <dt>Anime</dt>
-        <dd>Every new episode, at the minute it airs. <span>From AniList. You can import what you're watching from AniList or MyAnimeList.</span></dd>
-        <dt>Movies</dt>
-        <dd>In theaters, digital release, and the day it lands on a streaming service. <span>From TMDB.</span></dd>
-        <dt>TV</dt>
-        <dd>New episodes and new season premieres. Whole-season drops arrive as one alert. <span>From TMDB. You can import a Trakt watchlist.</span></dd>
-        <dt>Games</dt>
-        <dd>Launch day, ports to new platforms, and release-date changes. <span>From IGDB.</span></dd>
-        <dt>News</dt>
-        <dd>A Steam game's news and patch notes, a YouTube channel's uploads, a subreddit, or any website with a feed. Type the name and Premiere finds the feed.</dd>
-      </dl>
+      <ul class="tickets">
+        <li class="stub">
+          <h3>Anime</h3>
+          <p>Every new episode, at the minute it airs.</p>
+          <div class="perf"></div>
+          <small>From AniList. Import your AniList or MyAnimeList list.</small>
+        </li>
+        <li class="stub">
+          <h3>Movies</h3>
+          <p>In theaters, digital release, and the day it reaches a streaming service.</p>
+          <div class="perf"></div>
+          <small>From TMDB.</small>
+        </li>
+        <li class="stub">
+          <h3>TV</h3>
+          <p>New episodes and season premieres. A whole-season drop is one alert.</p>
+          <div class="perf"></div>
+          <small>From TMDB. Import a Trakt watchlist.</small>
+        </li>
+        <li class="stub">
+          <h3>Games</h3>
+          <p>Launch day, new platforms, and release-date changes.</p>
+          <div class="perf"></div>
+          <small>From IGDB.</small>
+        </li>
+        <li class="stub">
+          <h3>News</h3>
+          <p>Steam game news, YouTube uploads, subreddits, or any site with a feed.</p>
+          <div class="perf"></div>
+          <small>Type the name. Premiere finds the feed.</small>
+        </li>
+      </ul>
     </section>
 
     <section class="wrap" id="commands" aria-labelledby="commands-title">
-      <h2 id="commands-title">Commands</h2>
+      <h2 class="section-title" id="commands-title">Commands</h2>
       <p class="lede">Server commands need the Manage Server permission. Everything else works for anyone, including in DMs.</p>
-      <ul class="commands">
-        <li><code>/track</code><span>Follow an anime, movie, show, game or feed</span></li>
-        <li><code>/list</code><span>Everything you follow, with countdowns</span></li>
-        <li><code>/untrack</code><span>Stop following something</span></li>
-        <li><code>/sync</code><span>Import from AniList, MyAnimeList or Trakt</span></li>
-        <li><code>/timezone</code><span>Set your timezone for release times</span></li>
-        <li><code>/settings</code><span>Reminders, quiet hours, and which alerts you get</span></li>
-        <li><code>/server setup</code><span>Choose where server alerts go</span></li>
-        <li><code>/delete-my-data</code><span>Erase everything stored about you</span></li>
-      </ul>
+      <div class="letterboard">
+        <ul>
+          <li><span>/track</span><span>Follow a title or feed</span></li>
+          <li><span>/list</span><span>Everything you follow</span></li>
+          <li><span>/untrack</span><span>Stop following something</span></li>
+          <li><span>/sync</span><span>Import AniList, MAL or Trakt</span></li>
+          <li><span>/timezone</span><span>Set your local time</span></li>
+          <li><span>/settings</span><span>Reminders and quiet hours</span></li>
+          <li><span>/server setup</span><span>Where server alerts go</span></li>
+          <li><span>/delete-my-data</span><span>Erase everything about you</span></li>
+        </ul>
+      </div>
     </section>
   </main>
 
@@ -121,6 +156,9 @@
 
   <script>
     (function () {
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var CHARS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:.";
+
       // Discord invite links: fill in the application ID from the meta tag.
       var id = document.querySelector('meta[name="discord-application-id"]').content;
       if (id && id !== "YOUR_APPLICATION_ID") {
@@ -129,32 +167,104 @@
         });
       }
 
-      // Live numbers from the bot. If the bot isn't reachable, the section stays hidden.
-      var url = document.querySelector('meta[name="premiere-stats-url"]').content;
-      if (!url) return;
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      function countUp(el, to) {
-        if (reduce || to === 0) { el.textContent = to.toLocaleString(); return; }
-        var start = performance.now(), dur = 1400;
-        (function frame(now) {
-          var t = Math.min(1, (now - start) / dur), eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = Math.round(to * eased).toLocaleString();
-          if (t < 1) requestAnimationFrame(frame);
-        })(start);
+      // ── Split-flap tiles ───────────────────────────────────────────────
+      function makeCells(parent, count) {
+        var cells = [];
+        for (var i = 0; i < count; i++) {
+          var c = document.createElement("span");
+          c.className = "flap";
+          c.textContent = " ";
+          parent.appendChild(c);
+          cells.push(c);
+        }
+        return cells;
       }
 
+      // Flip each tile through a few random letters, then land on the target.
+      function flipTo(cells, text, startDelay) {
+        text = text.toUpperCase().padEnd(cells.length).slice(0, cells.length);
+        cells.forEach(function (cell, i) {
+          var target = text[i];
+          if (reduce) { cell.textContent = target; return; }
+          if (cell.textContent === target) return;
+          var spins = 4 + Math.floor(Math.random() * 6);
+          var step = 0;
+          setTimeout(function tick() {
+            cell.classList.remove("flip");
+            void cell.offsetWidth;  // restart the flip animation
+            cell.classList.add("flip");
+            if (step++ < spins) {
+              cell.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+              setTimeout(tick, 70);
+            } else {
+              cell.textContent = target;
+            }
+          }, (startDelay || 0) + i * 22);
+        });
+      }
+
+      // ── "Now showing" board (example releases) ─────────────────────────
+      var SHOWS = [
+        ["Anime", "Lanterns of Kuroshima", "Ep 8", "In 1h"],
+        ["Game", "Hollow Orbit", "PS5 PC", "Out now"],
+        ["Movie", "The Last Projectionist", "Max", "Streaming"],
+        ["TV", "Glass Harbor", "S2 E1", "Tomorrow"],
+        ["News", "Hollow Orbit patch 1.2", "Steam", "New"],
+        ["Anime", "Star Chef Sora", "Ep 12", "Finale"],
+        ["Movie", "Midnight Matinee", "Cinemas", "Fri"],
+        ["Game", "Tidebreaker", "Switch", "In 3 days"],
+      ];
+      var COLS = [["col-type", 5], ["col-title", 22], ["col-detail", 7], ["col-status", 9]];
+      var ROWS = 4;
+      var board = document.getElementById("board");
+      var list = document.getElementById("board-text");
+      SHOWS.forEach(function (s) {
+        var li = document.createElement("li");
+        li.textContent = s[0] + ": " + s[1] + ", " + s[2] + ", " + s[3];
+        list.appendChild(li);
+      });
+      var rows = [];
+      for (var r = 0; r < ROWS; r++) {
+        var row = document.createElement("div");
+        row.className = "board-row";
+        var cols = COLS.map(function (spec) {
+          var col = document.createElement("div");
+          col.className = "board-col " + spec[0];
+          row.appendChild(col);
+          return makeCells(col, spec[1]);
+        });
+        board.appendChild(row);
+        rows.push({ el: row, cols: cols });
+      }
+      function show(rowIndex, item, delay) {
+        var row = rows[rowIndex];
+        row.el.classList.toggle("is-out", /out now|streaming|new/i.test(item[3]));
+        item.forEach(function (text, c) { flipTo(row.cols[c], text, delay); });
+      }
+      var next = 0;
+      rows.forEach(function (_, i) { show(i, SHOWS[next++ % SHOWS.length], 400 + i * 260); });
+      if (!reduce) {
+        var turn = 0;
+        setInterval(function () {
+          show(turn % ROWS, SHOWS[next++ % SHOWS.length], 0);
+          turn++;
+        }, 3200);
+      }
+
+      // ── Live numbers published by the bot ──────────────────────────────
+      var url = document.querySelector('meta[name="premiere-stats-url"]').content;
+      if (!url) return;
       fetch(url, { cache: "no-store" })
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function (data) {
-          var section = document.getElementById("stats");
-          document.querySelectorAll("[data-stat]").forEach(function (el) {
-            countUp(el, Number(data[el.dataset.stat]) || 0);
+          document.querySelectorAll("[data-stat]").forEach(function (dd, i) {
+            var value = String(Number(data[dd.dataset.stat]) || 0);
+            flipTo(makeCells(dd, Math.max(value.length, 2)), value.padStart(Math.max(value.length, 2), "0"), 300 + i * 200);
           });
           var mins = Math.max(0, Math.round((Date.now() / 1000 - data.updated_at) / 60));
-          document.getElementById("stats-note").textContent =
-            "Live from the bot. Updated " + (mins < 2 ? "just now" : mins + " minutes ago") + ".";
-          section.hidden = false;
+          var when = mins < 2 ? "just now" : mins < 120 ? mins + " minutes ago" : Math.round(mins / 60) + " hours ago";
+          document.getElementById("stats-note").textContent = "Live from the bot. Updated " + when + ".";
+          document.getElementById("stats").hidden = false;
         })
         .catch(function () { /* stats are optional: keep the section hidden */ });
     })();

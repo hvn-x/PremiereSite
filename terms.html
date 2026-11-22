@@ -12,28 +12,49 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header wrap">
+  <div class="stage stage-short">
+    <div class="searchlight left" aria-hidden="true"></div>
+    <div class="searchlight right" aria-hidden="true"></div>
+    <header class="site-header wrap">
     <a class="brand" href="./"><img src="assets/logo.png" alt="" width="44" height="44">Premiere</a>
     <nav class="site-nav" aria-label="Site">
-      <a href="./#commands">Commands</a>
+      <a class="nav-extra" href="./#now-showing">Now showing</a>
+      <a class="nav-extra" href="./#commands">Commands</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html" aria-current="page">Terms</a>
     </nav>
   </header>
+  </div>
 
-  <main class="wrap doc">
-    <h1>Terms of service</h1>
-    <p class="updated">Last updated November 19, 2026</p>
+  <main class="wrap playbill-stage">
+      <div class="playbill-layout">
+        <nav class="toc" aria-label="On this page">
+          <p>In this programme</p>
+          <ol>
+          <li><a href="#what-premiere-does">What Premiere does</a></li>
+          <li><a href="#no-guarantees">No guarantees</a></li>
+          <li><a href="#using-it-fairly">Using it fairly</a></li>
+          <li><a href="#content-and-credits">Content and credits</a></li>
+          <li><a href="#your-data">Your data</a></li>
+          <li><a href="#changes">Changes</a></li>
+          <li><a href="#contact">Contact</a></li>
+          </ol>
+        </nav>
+        <article class="playbill">
+          <header class="playbill-band">
+            <small>Premiere presents</small>
+            <h1>Terms of service</h1>
+            <p class="updated">Last updated November 19, 2026</p>
+          </header>
+<p>By adding Premiere to a server or to your Discord account, or by using its commands, you agree to these terms. If you don't agree, remove the bot and stop using it.</p>
 
-    <p>By adding Premiere to a server or to your Discord account, or by using its commands, you agree to these terms. If you don't agree, remove the bot and stop using it.</p>
-
-    <h2>What Premiere does</h2>
+    <h2 id="what-premiere-does">What Premiere does</h2>
     <p>Premiere sends alerts about releases of anime, movies, TV shows and games, and new posts on RSS feeds you choose. It's free and provided as a hobby project.</p>
 
-    <h2>No guarantees</h2>
+    <h2 id="no-guarantees">No guarantees</h2>
     <p>Release information comes from AniList, TMDB, IGDB, MyAnimeList, Trakt and the feeds you add. It can be wrong, late or change without notice, and an alert may arrive late or not at all. The bot may be unavailable at times, and features may change or be removed. Premiere is provided as is, without warranties of any kind, and its operator isn't liable for any loss that results from using it or relying on its alerts.</p>
 
-    <h2>Using it fairly</h2>
+    <h2 id="using-it-fairly">Using it fairly</h2>
     <ul>
       <li>Follow <a href="https://discord.com/terms">Discord's Terms of Service</a> and <a href="https://discord.com/guidelines">Community Guidelines</a> when using Premiere.</li>
       <li>Don't use Premiere to spam people. Server admins using role-DM mode should only pick roles whose members want the alerts.</li>
@@ -42,19 +63,21 @@
     </ul>
     <p>Access may be limited or blocked for anyone who breaks these rules.</p>
 
-    <h2>Content and credits</h2>
+    <h2 id="content-and-credits">Content and credits</h2>
     <p>Titles, descriptions and cover art belong to their owners and are shown to tell you about releases. Data comes from AniList, IGDB (Twitch) and TMDB; streaming availability comes from JustWatch via TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB. Premiere is not affiliated with Discord or any of these services.</p>
 
-    <h2>Your data</h2>
+    <h2 id="your-data">Your data</h2>
     <p>The <a href="privacy.html">privacy policy</a> explains what Premiere stores and how to delete it, including with <code>/delete-my-data</code>.</p>
 
-    <h2>Changes</h2>
+    <h2 id="changes">Changes</h2>
     <p>These terms may be updated. The date at the top shows the latest version, and continuing to use Premiere after a change means you accept it.</p>
 
-    <h2>Contact</h2>
+    <h2 id="contact">Contact</h2>
     <!-- EDIT: replace with your contact email or support server invite. -->
     <p>Questions: <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a>.</p>
-  </main>
+        </article>
+      </div>
+    </main>
 
   <footer class="site-footer">
     <div class="wrap">
