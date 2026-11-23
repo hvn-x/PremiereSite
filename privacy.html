@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -29,29 +29,36 @@
   </header>
   </div>
 
-  <main class="wrap playbill-stage">
-      <div class="playbill-layout">
-        <nav class="toc" aria-label="On this page">
-          <p>In this programme</p>
-          <ol>
-          <li><a href="#what-premiere-stores">What Premiere stores</a></li>
-          <li><a href="#who-else-sees-it">Who else sees it</a></li>
-          <li><a href="#where-its-kept">Where it's kept</a></li>
-          <li><a href="#how-to-delete-it">How to delete it</a></li>
-          <li><a href="#children">Children</a></li>
-          <li><a href="#changes">Changes</a></li>
-          <li><a href="#contact">Contact</a></li>
-          </ol>
-        </nav>
-        <article class="playbill">
-          <header class="playbill-band">
-            <small>Premiere presents</small>
-            <h1>Privacy policy</h1>
-            <p class="updated">Last updated November 19, 2026</p>
-          </header>
+  <main class="wrap script-stage">
+    <div class="script-layout">
+      <nav class="scenes" aria-label="Scenes">
+        <p class="scenes-title">Scene list</p>
+        <ol>
+            <li><a href="#what-premiere-stores"><span>1</span>What Premiere stores</a></li>
+            <li><a href="#who-else-sees-it"><span>2</span>Who else sees it</a></li>
+            <li><a href="#where-its-kept"><span>3</span>Where it's kept</a></li>
+            <li><a href="#how-to-delete-it"><span>4</span>How to delete it</a></li>
+            <li><a href="#children"><span>5</span>Children</a></li>
+            <li><a href="#changes"><span>6</span>Changes</a></li>
+            <li><a href="#contact"><span>7</span>Contact</a></li>
+        </ol>
+      </nav>
+      <article class="script">
+        <header class="slate">
+          <div class="clapper" aria-hidden="true"><span class="stick stick-top"></span><span class="stick"></span></div>
+          <div class="slate-board">
+            <p class="slate-field slate-prod"><small>Production</small>Premiere</p>
+            <h1 class="slate-field slate-scene"><small>Scene</small>Privacy policy</h1>
+            <p class="slate-field"><small>Take</small>1</p>
+            <p class="slate-field"><small>Roll</small>7 scenes</p>
+            <p class="slate-field slate-date"><small>Date</small><time>Nov 19, 2026</time></p>
+          </div>
+        </header>
+        <div class="script-page">
+          <p class="transition">Fade in:</p>
 <p>Premiere is a Discord bot that sends alerts when anime, movies, TV shows and games come out. This page explains what it stores, why, and how to remove it. It stores only what it needs to send you alerts, and it never reads your messages.</p>
 
-    <h2 id="what-premiere-stores">What Premiere stores</h2>
+    <h2 id="what-premiere-stores"><span class="sc" aria-hidden="true">1</span>What Premiere stores<span class="sc sc-r" aria-hidden="true">1</span></h2>
     <table>
       <thead><tr><th scope="col">Data</th><th scope="col">Why</th></tr></thead>
       <tbody>
@@ -67,15 +74,15 @@
 
     <p>Premiere does not store message content, email addresses, IP addresses or your Discord profile. In role-DM mode it looks up which members have the chosen role when sending an alert. That list is kept in memory for up to 15 minutes and is not saved.</p>
 
-    <h2 id="who-else-sees-it">Who else sees it</h2>
+    <h2 id="who-else-sees-it"><span class="sc" aria-hidden="true">2</span>Who else sees it<span class="sc sc-r" aria-hidden="true">2</span></h2>
     <p>To find titles and check for releases, the bot's server sends requests to AniList, TMDB, IGDB (Twitch), MyAnimeList and Trakt, and to the websites of any RSS feeds you add. These services receive what you searched for and, when you use <code>/sync</code>, the username you entered. They don't receive your Discord identity. Cover images are downloaded from the same services.</p>
     <p>Alerts are delivered through Discord, so <a href="https://discord.com/privacy">Discord's privacy policy</a> also applies. Premiere doesn't sell or share your data with anyone else, and it doesn't use analytics or ads.</p>
     <p>The website shows overall totals, such as how many titles are tracked and how many alerts have been sent. These are counts only and never identify anyone.</p>
 
-    <h2 id="where-its-kept">Where it's kept</h2>
+    <h2 id="where-its-kept"><span class="sc" aria-hidden="true">3</span>Where it's kept<span class="sc sc-r" aria-hidden="true">3</span></h2>
     <p>On the server that runs this copy of Premiere, in a database file that only the bot's operator can access. Server logs may briefly include Discord IDs when something goes wrong; logs are rotated and kept for a short time.</p>
 
-    <h2 id="how-to-delete-it">How to delete it</h2>
+    <h2 id="how-to-delete-it"><span class="sc" aria-hidden="true">4</span>How to delete it<span class="sc sc-r" aria-hidden="true">4</span></h2>
     <ul>
       <li><code>/untrack</code> removes a single title, and <code>/unsync</code> unlinks an AniList, MyAnimeList or Trakt account.</li>
       <li><code>/delete-my-data</code> erases everything Premiere stores about you, including alerts waiting to be sent.</li>
@@ -83,28 +90,32 @@
     </ul>
     <p>Anything you don't delete is kept until you do, so your alerts keep working.</p>
 
-    <h2 id="children">Children</h2>
+    <h2 id="children"><span class="sc" aria-hidden="true">5</span>Children<span class="sc sc-r" aria-hidden="true">5</span></h2>
     <p>Premiere is meant for people old enough to use Discord under <a href="https://discord.com/terms">Discord's terms</a>.</p>
 
-    <h2 id="changes">Changes</h2>
+    <h2 id="changes"><span class="sc" aria-hidden="true">6</span>Changes<span class="sc sc-r" aria-hidden="true">6</span></h2>
     <p>If this policy changes, the date at the top will change too. Significant changes will be announced where the bot is used.</p>
 
-    <h2 id="contact">Contact</h2>
+    <h2 id="contact"><span class="sc" aria-hidden="true">7</span>Contact<span class="sc sc-r" aria-hidden="true">7</span></h2>
     <p>Questions or requests: ask in the <a href="https://discord.gg/dvxegavKFR">Premiere support server</a>.</p>
-        </article>
-      </div>
-    </main>
+          <p class="transition transition-out">Fade out.</p>
+          <p class="sr-only">Last updated November 19, 2026.</p>
+        </div>
+      </article>
+    </div>
+  </main>
 
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div class="footer-brand">
         <a class="brand" href="./"><img src="assets/logo.png" alt="" width="46" height="46">Premiere</a>
         <p>Release alerts for anime, movies, TV and games, right in Discord. Free, forever.</p>
+      </div>
+      <div class="footer-right">
         <div class="footer-social">
           <a class="social social-discord" href="https://discord.gg/dvxegavKFR" aria-label="Support server on Discord"></a>
           <a class="social social-patreon" href="https://www.patreon.com/cw/hvn_x" aria-label="Premiere on Patreon"></a>
         </div>
-      </div>
       <nav class="footer-cols" aria-label="Footer">
         <div>
           <h2>Premiere</h2>
@@ -112,6 +123,11 @@
             <li><a data-invite="server" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a></li>
             <li><a data-invite="user" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a></li>
             <li><a href="./#commands">Commands</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul>
             <li><a href="https://discord.gg/dvxegavKFR">Support server</a></li>
             <li><a href="https://www.patreon.com/cw/hvn_x">Patreon</a></li>
           </ul>
@@ -124,6 +140,7 @@
           </ul>
         </div>
       </nav>
+      </div>
     </div>
     <div class="wrap footer-fine">
       <p class="owner">&copy; 2026 Premiere. Not affiliated with Discord.</p>
@@ -131,5 +148,26 @@
       <p>Grand Theft Auto VI, Steel Ball Run: JoJo's Bizarre Adventure and Spider-Man: Brand New Day, their names and artwork are shown only as examples of Premiere's alerts. All copyrights and trademarks remain with their original owners. Premiere is not affiliated with, endorsed by or sponsored by them, or by any studio, publisher or service mentioned on this site.</p>
     </div>
   </footer>
+  <script>
+    // Light up the scene you're reading: the last heading above the top third.
+    (function () {
+      var heads = [].slice.call(document.querySelectorAll(".script-page h2[id]"));
+      var links = {};
+      document.querySelectorAll(".scenes a").forEach(function (a) { links[a.hash.slice(1)] = a; });
+      var current, frame = 0;
+      function update() {
+        frame = 0;
+        var line = window.innerHeight * 0.35, active = null;
+        heads.forEach(function (h) { if (h.getBoundingClientRect().top < line) active = h; });
+        var link = active && links[active.id];
+        if (link === current) return;
+        if (current) current.removeAttribute("aria-current");
+        current = link;
+        if (current) current.setAttribute("aria-current", "location");
+      }
+      window.addEventListener("scroll", function () { if (!frame) frame = requestAnimationFrame(update); }, { passive: true });
+      update();
+    })();
+  </script>
 </body>
 </html>
