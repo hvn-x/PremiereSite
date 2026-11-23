@@ -417,7 +417,7 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 
 /* A message as the bot posts it: the image card, then a link button. */
 .msg { display: flex; gap: 12px; align-items: flex-start; width: 100%; text-align: left; }
-.msg-avatar { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--night-3); padding: 5px; }
+.msg-avatar { flex: none; width: 36px; height: 36px; border-radius: 50%; }
 .msg-main { display: grid; gap: 6px; min-width: 0; flex: 1; justify-items: start; }
 .case .msg p { margin: 0; max-width: none; }
 .msg-head { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text); }
