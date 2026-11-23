@@ -239,7 +239,7 @@ code { font: 600 0.95em/1 var(--body); color: var(--champagne); }
 
 /* ── House lights: soft pools of stage light spilling down the page ── */
 main { position: relative; isolation: isolate; }
-main:not(.script-stage)::before {
+main:not(.theater)::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -766,127 +766,92 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 .footer-fine p { margin: 0; max-width: 80ch; }
 .footer-fine .owner { color: var(--paper); font-size: 0.9rem; }
 
-/* ── Shooting script: privacy policy and terms ────────────────────────
-   A slate on top, then a screenplay page bound with brass brads; each
-   section is a numbered scene, with numbers in both margins. */
-.script-stage { --script: "Courier Prime", "Courier New", monospace; padding-block: clamp(20px, 4vw, 48px) 90px; }
-.script-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 40px; align-items: start; }
-
-.scenes {
-  position: sticky;
-  top: 24px;
-  padding: 20px 18px;
-  border-radius: 10px;
-  background: #1b1416;
+/* ── Cinema screen: privacy policy and terms ──────────────────────────
+   The text is projected onto a silver screen in a dark auditorium: a beam
+   rises from the booth, and a row of seats stays at the bottom of the view. */
+.theater { position: relative; isolation: isolate; padding: 8px 0 0; }
+.chapters { position: sticky; top: 0; z-index: 3; padding-block: 12px; background: linear-gradient(180deg, var(--ink) 70%, transparent); }
+.chapters ol { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.chapters a {
+  display: block;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #1f1416;
   box-shadow: inset 0 0 0 1px var(--line);
-  font-family: var(--script);
-}
-.scenes-title { margin: 0 0 12px; font: 900 1.4rem/1 var(--display); text-transform: uppercase; color: var(--champagne); }
-.scenes ol { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
-.scenes a {
-  display: grid;
-  grid-template-columns: 2.2ch 1fr;
-  gap: 8px;
-  padding: 6px 8px;
-  border-radius: 4px;
   color: var(--paper-dim);
   font-size: 0.88rem;
-  line-height: 1.35;
+  font-weight: 600;
   text-decoration: none;
-  text-transform: uppercase;
   transition: background-color 160ms ease, color 160ms ease;
 }
-.scenes a span { color: #8f7e80; }
-.scenes a:hover { color: var(--paper); background: rgba(255, 214, 120, 0.06); }
-.scenes a[aria-current] { color: var(--ink); background: var(--champagne); }
-.scenes a[aria-current] span { color: var(--velvet); }
+.chapters a:hover { color: var(--paper); background: #2a1a1d; }
+.chapters a[aria-current] { color: var(--ink); background: var(--champagne); box-shadow: 0 0 18px rgba(255, 214, 120, 0.45); }
 
-/* The slate: striped clapper on a hinge, chalk fields below. */
-.slate { margin-bottom: 26px; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55)); }
-.clapper { position: relative; height: 64px; }
-.stick {
-  position: absolute;
-  inset: auto 0 0;
-  height: 30px;
-  border-radius: 4px 4px 0 0;
-  background: repeating-linear-gradient(118deg, #f4efe6 0 34px, #141011 34px 68px);
+/* The projector beam, from behind the audience up to the screen. */
+.beam {
+  position: fixed;
+  left: 50%;
+  bottom: -10vh;
+  width: 160vh;
+  height: 130vh;
+  margin-left: -80vh;
+  z-index: -1;
+  background: conic-gradient(from -16deg at 50% 100%, transparent 0deg, rgba(255, 238, 200, 0.07) 6deg, rgba(255, 238, 200, 0.12) 16deg, rgba(255, 238, 200, 0.07) 26deg, transparent 32deg, transparent 360deg);
+  -webkit-mask-image: linear-gradient(to top, #000 10%, rgba(0, 0, 0, 0.5) 70%, transparent);
+          mask-image: linear-gradient(to top, #000 10%, rgba(0, 0, 0, 0.5) 70%, transparent);
+  animation: projector 5s steps(1, end) infinite;
+  pointer-events: none;
 }
-.stick-top {
-  bottom: 32px;
-  border-radius: 4px;
-  transform-origin: 14px 100%;
-  transform: rotate(-12deg);
-  animation: clap 700ms cubic-bezier(.6, 0, .4, 1.4) 350ms forwards;
-}
-@keyframes clap { 70% { transform: rotate(1deg); } 100% { transform: rotate(0deg); } }
-.slate-board {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-radius: 0 0 8px 8px;
-  background: radial-gradient(120% 90% at 30% 10%, #2a2426, #151112);
-  box-shadow: inset 0 0 0 2px #f4efe6;
-  color: #f4efe6;
-}
-.slate-field {
-  margin: 0;
-  padding: 12px 16px 14px;
-  border: 1px solid rgba(244, 239, 230, 0.55);
-  font: 800 clamp(1.3rem, 2.4vw, 1.8rem)/1.05 var(--display);
-  text-transform: uppercase;
-}
-.slate-field small { display: block; margin-bottom: 6px; font: 700 0.72rem/1 var(--script); letter-spacing: 0.08em; color: #b9adab; }
-.slate-prod { grid-column: 1 / -1; color: var(--champagne); }
-.slate-scene { grid-column: 1 / -1; font-size: clamp(2.6rem, 7vw, 4.8rem); line-height: 0.9; }
+@keyframes projector { 0%, 100% { opacity: 1; } 37% { opacity: 0.86; } 41% { opacity: 1; } 73% { opacity: 0.92; } 76% { opacity: 1; } }
 
-/* The script page itself. */
-.script-page {
+/* The screen: black masking frame, silver surface, light spilling out. */
+.screen {
   position: relative;
-  padding: clamp(32px, 5vw, 64px) clamp(44px, 8vw, 104px) clamp(40px, 5vw, 64px);
-  background: #fbf8f1;
-  color: #1d1718;
-  font: 400 1rem/1.6 var(--script);
-  border-radius: 2px;
-  box-shadow: 5px 5px 0 #e8e1d2, 10px 10px 0 #d6ccb9, 0 40px 90px -40px rgba(0, 0, 0, 0.9);
-}
-/* Brass brads in the first and third punch holes. */
-.script-page::before {
-  content: "";
-  position: absolute;
-  left: 16px;
-  top: 0;
-  bottom: 0;
-  width: 14px;
+  width: min(900px, 100% - 2 * var(--gutter));
+  margin: 22px auto 0;
+  padding: clamp(32px, 6vw, 72px) clamp(24px, 7vw, 88px) clamp(40px, 6vw, 80px);
+  border: clamp(8px, 1.4vw, 16px) solid #060304;
+  border-radius: 10px / 26px;
   background:
-    radial-gradient(circle, #f3d48a 0 3px, #b88a2e 4px 6px, #6e5114 7px, transparent 7.5px) 0 64px / 14px 14px no-repeat,
-    radial-gradient(circle, #f3d48a 0 3px, #b88a2e 4px 6px, #6e5114 7px, transparent 7.5px) 0 calc(100% - 64px) / 14px 14px no-repeat;
+    radial-gradient(70% 45% at 50% 30%, rgba(255, 255, 255, 0.9), transparent 80%),
+    linear-gradient(180deg, #f7f2e8, #e7dfd0);
+  color: #231a1c;
+  box-shadow:
+    0 0 0 1px #2a1d20,
+    0 0 70px 6px rgba(255, 236, 196, 0.22),
+    0 0 220px 40px rgba(255, 220, 170, 0.1);
 }
-.script-page p, .script-page li { max-width: 62ch; }
-.script-page a { color: var(--velvet); font-weight: 700; }
-.script-page a:hover { color: var(--crimson); }
-.script-page code { font: 700 1em/1 var(--script); color: var(--velvet); }
-.script-page li { margin-block: 6px; }
-.transition { margin: 0 0 18px; font-weight: 700; text-transform: uppercase; }
-.transition-out { margin: 40px 0 0; text-align: right; max-width: none !important; }
-.script-page h2 {
-  position: relative;
-  margin: 38px 0 12px;
-  font: 700 1rem/1.4 var(--script);
-  text-transform: uppercase;
-  scroll-margin-top: 24px;
+.title-card { margin-bottom: 30px; padding-bottom: 26px; text-align: center; border-bottom: 2px solid rgba(35, 26, 28, 0.12); }
+.title-card h1 { margin: 0; font: 900 clamp(3rem, 9vw, 6rem)/0.86 var(--display); text-transform: uppercase; color: var(--velvet); }
+.title-card p { margin: 12px 0 0; color: #6a5a5c; font-weight: 600; }
+.screen p, .screen li { max-width: 66ch; }
+.screen h2 { margin: 40px 0 10px; font: 900 clamp(1.7rem, 3vw, 2.2rem)/1 var(--display); text-transform: uppercase; color: #231a1c; scroll-margin-top: 80px; }
+.screen a { color: var(--velvet); font-weight: 600; }
+.screen a:hover { color: var(--crimson); }
+.screen code { color: var(--velvet); }
+.screen li { margin-block: 6px; }
+.screen table { width: 100%; border-collapse: collapse; margin-block: 14px 6px; font-size: 0.97rem; }
+.screen th, .screen td { text-align: left; vertical-align: top; padding: 11px 14px 11px 0; border-top: 1px solid rgba(35, 26, 28, 0.14); }
+.screen thead th { border-top: 0; color: var(--velvet); font: 800 1.1rem/1 var(--display); text-transform: uppercase; }
+.screen td:first-child { font-weight: 600; }
+
+/* Seat backs along the bottom of the view while you read. */
+.seats {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+  height: 74px;
+  margin-top: 40px;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 30px 30px at 50% 100%, #080505 0 98%, transparent 100%) 0 100% / 76px 44px repeat-x,
+    radial-gradient(ellipse 30px 30px at 50% 100%, rgba(255, 214, 120, 0.14) 0 98%, transparent 100%) 0 calc(100% - 2px) / 76px 44px repeat-x,
+    linear-gradient(180deg, transparent 0, rgba(8, 5, 5, 0.85) 45%, #080505 70%) 0 100% / 100% 100% no-repeat;
 }
-.script-page h2::after { content: ""; display: block; width: 3ch; margin-top: 4px; border-bottom: 2px solid #1d1718; }
-.sc { position: absolute; left: calc(-1 * clamp(30px, 5vw, 64px)); top: 0; font-weight: 700; color: #8a7a76; }
-.sc-r { left: auto; right: calc(-1 * clamp(30px, 5vw, 64px)); }
-.script-page table { width: 100%; border-collapse: collapse; margin-block: 14px 6px; font-size: 0.93rem; }
-.script-page th, .script-page td { text-align: left; vertical-align: top; padding: 10px 14px 10px 0; border-top: 1px dashed rgba(29, 23, 24, 0.35); }
-.script-page thead th { border-top: 0; text-transform: uppercase; color: var(--velvet); }
-.script-page td:first-child { font-weight: 700; }
 
 /* ── Small screens ──────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .script-layout { grid-template-columns: 1fr; }
-  .scenes { position: static; }
 }
 @media (max-width: 760px) {
   .ticket { grid-template-columns: 1fr; transform: none; -webkit-mask: none; mask: none; }
@@ -925,26 +890,15 @@ section { padding-block: clamp(48px, 8vw, 96px); }
   html { scroll-behavior: auto; }
   .ticket, .ticket::after, .searchlight, .marquee::before, .marquee::after, .bulbs, .flap.flip { animation: none; }
   .ticket::after { display: none; }
-  .stick-top { animation: none; transform: none; }
+  .beam { animation: none; }
   .stub, .btn, .case, .case::before, .mini-ticket, .hero .wrap { transition: none; }
   .case:hover { transform: none; }
 }
 
 /* Short stage behind the header on the policy pages. */
 .stage-short { min-height: 220px; }
-.stage-short + main .script-layout { margin-top: -110px; position: relative; z-index: 2; }
-@media (max-width: 900px) { .stage-short + main .script-layout { margin-top: -90px; } }
 @media (max-width: 760px) {
-  .script-page { padding-inline: 34px 22px; }
-  .script-page::before { left: 8px; }
-  .sc { left: -26px; }
-  .sc-r { display: none; }
-  .slate-board { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .slate-field { padding: 10px 12px; font-size: 1.1rem; }
-  .slate-scene, .slate-prod { font-size: clamp(2.1rem, 11vw, 3rem); }
-  .slate-prod { font-size: 1.5rem; }
-  .scenes { padding: 14px; }
-  .scenes-title { display: none; }
-  .scenes ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .scenes a { font-size: 0.78rem; padding: 4px 6px; }
+  .chapters ol { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+  .chapters a { white-space: nowrap; }
+  .seats { height: 56px; }
 }
