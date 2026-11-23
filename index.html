@@ -16,21 +16,20 @@
   <meta property="og:image" content="https://hvn-x.github.io/PremiereSite/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="A gold-to-crimson ticket reading Never miss a release, with an Admit one stub saying Free, forever.">
+  <meta property="og:image:alt" content="A cinema screen lit by a projector beam, reading Never miss a release, beside an e-ticket saying Free, forever.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#f5a524">
+  <meta name="theme-color" content="#9bd8ff">
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Doto:ROND,wght@100,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="stage">
-    <div class="searchlight left" aria-hidden="true"></div>
-    <div class="searchlight right" aria-hidden="true"></div>
+    <div class="projector" aria-hidden="true"></div>
 
     <header class="site-header wrap">
       <a class="brand" href="./"><img src="assets/logo.png" alt="" width="46" height="46">Premiere</a>
@@ -44,20 +43,18 @@
     </header>
 
     <section class="hero" aria-labelledby="hero-title">
-      <div class="wrap">
-        <div class="ticket">
-          <div class="ticket-main">
-            <h1 id="hero-title">Never miss a release</h1>
-            <p>The episode drops, the game unlocks, the movie hits streaming. Premiere tells you right then, in Discord, at your midnight. Free, forever, with nothing to sign up for.</p>
-          </div>
-          <div class="ticket-stub">
-            <p class="admit">Admit one</p>
-            <p class="admit-sub">Anime, movies, TV and games. Free.</p>
-            <a class="btn btn-primary" data-invite="server" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
-            <a class="btn btn-secondary" data-invite="user" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
-            <a class="stub-link" href="https://discord.gg/dvxegavKFR">Questions? Join the support server</a>
-            <div class="barcode" aria-hidden="true"><span></span><small>No. 000001</small></div>
-          </div>
+      <div class="wrap hero-grid">
+        <div class="screen-hero">
+          <h1 id="hero-title">Never miss a release</h1>
+          <p>The episode drops, the game unlocks, the movie hits streaming. Premiere tells you right then, in Discord, at your midnight. Free, forever, with nothing to sign up for.</p>
+        </div>
+        <div class="pass">
+          <div class="pass-head"><img src="assets/logo.png" alt="" width="34" height="34"><b>Premiere</b><span>Admit one</span></div>
+          <p class="pass-price"><span class="led-text">$0</span><small>Free, forever</small></p>
+          <a class="btn btn-primary" data-invite="server" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Add to a server</a>
+          <a class="btn btn-secondary" data-invite="user" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=applications.commands&amp;integration_type=1">Add to your account</a>
+          <a class="stub-link" href="https://discord.gg/dvxegavKFR">Questions? Join the support server</a>
+          <div class="pass-code" aria-hidden="true"></div>
         </div>
       </div>
     </section>
@@ -66,7 +63,7 @@
   <main>
     <section class="wrap" id="now-showing" aria-labelledby="now-showing-title">
       <div class="marquee">
-        <h2 class="marquee-title" id="now-showing-title">Now showing</h2>
+        <h2 class="marquee-title" id="now-showing-title"><span>Now showing</span><span class="board-clock" aria-hidden="true"></span></h2>
         <div class="board" id="board" aria-hidden="true"></div>
         <ul class="sr-only" id="board-text"></ul>
       </div>
@@ -101,7 +98,7 @@
         <article class="case case-free">
           <div class="case-show" aria-hidden="true">
             <div class="mini-ticket">
-              <span class="mini-price"><small>Price</small>0.00</span>
+              <span class="mini-price"><small>Price</small><span class="led-text">$0</span></span>
               <span class="mini-admit">Admit everyone</span>
             </div>
           </div>
@@ -170,7 +167,7 @@
       <div class="filmstrip">
         <figure class="frame">
           <a href="assets/card-game.webp"><img src="assets/card-game.webp" width="1800" height="500" loading="lazy" alt="Alert card: Grand Theft Auto VI is out now. Released Nov 19, 2026 on PS5 and Xbox Series X."></a>
-          <figcaption><b>Launch day.</b> A game unlocks at midnight on release day, in your timezone, and you hear about it right then.</figcaption>
+          <figcaption><b>Launch day.</b> You hear about it the moment it unlocks: when Steam opens it up, or at midnight in your timezone for consoles.</figcaption>
         </figure>
         <figure class="frame">
           <a class="countdown-card" href="assets/card-anime.webp"><img src="assets/card-anime.webp" width="1800" height="500" loading="lazy" alt="Alert card: episode 1 of Steel Ball Run: JoJo's Bizarre Adventure has aired, and episode 2 is out now."><span class="countdown" aria-hidden="true" hidden></span></a>
@@ -301,7 +298,7 @@
         });
       }
 
-      // ── Split-flap tiles ───────────────────────────────────────────────
+      // ── LED character cells (the board, the clock, the live stats) ──────
       function makeCells(parent, count) {
         var cells = [];
         for (var i = 0; i < count; i++) {
@@ -314,7 +311,7 @@
         return cells;
       }
 
-      // Flip each tile through a few random letters, then land on the target.
+      // Scramble each cell through a few random characters, then land on the target.
       function flipTo(cells, text, startDelay) {
         text = text.toUpperCase().padEnd(cells.length).slice(0, cells.length);
         cells.forEach(function (cell, i) {
@@ -404,44 +401,18 @@
         });
       }
 
-      // ── Marquee bulbs: equal steps along every side ────────────────────
-      // Two interleaved sets take turns lighting up. Each side gets a whole
-      // number of steps, so the corners and the spacing always line up.
-      var marquee = document.querySelector(".marquee");
-      if (marquee && "ResizeObserver" in window) {
-        var sets = ["a", "b"].map(function (k) {
-          var d = document.createElement("div");
-          d.className = "bulbs bulbs-" + k;
-          d.setAttribute("aria-hidden", "true");
-          marquee.appendChild(d);
-          return d;
-        });
-        marquee.classList.add("has-bulbs");
-        var laid = "";
-        var layBulbs = function () {
-          var inset = marquee.clientWidth < 600 ? 14 : 16;
-          var w = marquee.clientWidth - 2 * inset, h = marquee.clientHeight - 2 * inset;
-          if (laid === w + "x" + h) return;
-          laid = w + "x" + h;
-          var nx = Math.max(2, Math.round(w / 26)), ny = Math.max(2, Math.round(h / 26));
-          var pts = [], i;
-          for (i = 0; i < nx; i++) pts.push([inset + w * i / nx, inset]);
-          for (i = 0; i < ny; i++) pts.push([inset + w, inset + h * i / ny]);
-          for (i = 0; i < nx; i++) pts.push([inset + w - w * i / nx, inset + h]);
-          for (i = 0; i < ny; i++) pts.push([inset, inset + h - h * i / ny]);
-          sets.forEach(function (s) { s.textContent = ""; });
-          pts.forEach(function (p, i) {
-            var b = document.createElement("i");
-            b.style.left = p[0].toFixed(2) + "px";
-            b.style.top = p[1].toFixed(2) + "px";
-            sets[i % 2].appendChild(b);
-          });
+      // ── Board clock: your local time, like a cinema's showtime screen ───
+      var boardClock = document.querySelector(".board-clock");
+      if (boardClock) {
+        var tick = function () {
+          boardClock.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
         };
-        new ResizeObserver(layBulbs).observe(marquee);
+        tick();
+        setInterval(tick, 15000);
       }
 
       // ── Midnight clock: it's 00:00 somewhere, city after city ──────────
-      // The visitor's own city joins the rotation and lights up gold.
+      // The visitor's own city joins the rotation and lights up.
       var clock = document.querySelector(".clock");
       if (clock) {
         var cities = clock.dataset.cities.split(",");
@@ -470,31 +441,30 @@
         }
       }
 
-      // ── Hero ticket: tilts toward the pointer, with a glare that follows ──
-      var ticket = document.querySelector(".ticket");
-      if (ticket && !reduce && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-        var tiltBox = ticket.parentElement;
+      // ── E-ticket: tilts toward the pointer, with a glare that follows ───
+      var pass = document.querySelector(".pass");
+      if (pass && !reduce && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         var glare = document.createElement("span");
         glare.className = "glare";
         glare.setAttribute("aria-hidden", "true");
-        ticket.appendChild(glare);
+        pass.appendChild(glare);
         var frame = 0, px = 0.5, py = 0.5;
         var tilt = function () {
           frame = 0;
-          tiltBox.style.transform = "perspective(1400px) rotateX(" + ((0.5 - py) * 7).toFixed(2) + "deg) rotateY(" + ((px - 0.5) * 9).toFixed(2) + "deg)";
-          ticket.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
-          ticket.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+          pass.style.transform = "perspective(900px) rotateX(" + ((0.5 - py) * 10).toFixed(2) + "deg) rotateY(" + ((px - 0.5) * 12).toFixed(2) + "deg)";
+          pass.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
+          pass.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
         };
-        ticket.addEventListener("pointermove", function (e) {
-          var r = ticket.getBoundingClientRect();
+        pass.addEventListener("pointermove", function (e) {
+          var r = pass.getBoundingClientRect();
           px = (e.clientX - r.left) / r.width;
           py = (e.clientY - r.top) / r.height;
-          tiltBox.classList.add("is-tilting");
+          pass.classList.add("is-tilting");
           if (!frame) frame = requestAnimationFrame(tilt);
         });
-        ticket.addEventListener("pointerleave", function () {
-          tiltBox.classList.remove("is-tilting");
-          tiltBox.style.transform = "";
+        pass.addEventListener("pointerleave", function () {
+          pass.classList.remove("is-tilting");
+          pass.style.transform = "";
         });
       }
 
@@ -519,18 +489,23 @@
       }
 
       // ── Steel Ball Run card: episode 2 counts down, then it's out ──────
-      // Flip tiles laid exactly over the tiles in the card image. Without JS
-      // (or with reduced motion) the image itself already reads OUT NOW.
+      // An LED readout laid exactly over the "Episode 2" display in the card.
+      // Without JS (or with reduced motion) the image itself reads OUT NOW.
       var cd = document.querySelector(".countdown");
       if (cd && !reduce && "IntersectionObserver" in window) {
-        var cdCells = makeCells(cd, 7);
-        " IN 5S ".split("").forEach(function (ch, i) { cdCells[i].textContent = ch; });
+        var setCd = function (text) {
+          cd.textContent = text;
+          cd.classList.remove("flicker");
+          void cd.offsetWidth;  // restart the flicker
+          cd.classList.add("flicker");
+        };
+        cd.textContent = "IN 5S";
         cd.hidden = false;
         var watch = new IntersectionObserver(function (entries) {
           if (!entries[0].isIntersecting) return;
           watch.disconnect();
-          [" IN 4S ", " IN 3S ", " IN 2S ", " IN 1S ", "OUT NOW"].forEach(function (text, i) {
-            setTimeout(function () { flipTo(cdCells, text); }, 1000 * (i + 1));
+          ["IN 4S", "IN 3S", "IN 2S", "IN 1S", "OUT NOW"].forEach(function (text, i) {
+            setTimeout(function () { setCd(text); }, 1000 * (i + 1));
           });
         }, { threshold: 0.75 });
         watch.observe(cd.closest("figure"));
