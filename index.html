@@ -63,6 +63,14 @@
         <div class="board" id="board" aria-hidden="true"></div>
         <ul class="sr-only" id="board-text"></ul>
       </div>
+      <form class="try" id="try" hidden>
+        <label for="try-title">Try it. What are you waiting for?</label>
+        <div class="try-row">
+          <input id="try-title" name="title" maxlength="22" autocomplete="off" placeholder="Type a title" required>
+          <button class="btn btn-try" type="submit">Put it on the board</button>
+        </div>
+        <p class="try-note" id="try-note" aria-live="polite"></p>
+      </form>
       <div class="pitch">
         <p>That's your watchlist, flipping like this. Every anime, movie, show and game you follow, counted down to the minute and announced the moment it's out.</p>
         <a class="btn btn-glow" href="https://discord.com/oauth2/authorize?client_id=1572778431991517194&amp;scope=bot+applications.commands&amp;permissions=183296&amp;integration_type=0">Start your board</a>
@@ -79,7 +87,7 @@
               <div class="clock-city"></div>
             </div>
           </div>
-          <h3>Midnight. Your midnight.</h3>
+          <h3>At midnight, your time</h3>
           <p>Games and movies come out at midnight where you live, so that's when you hear about it. Set your timezone once and every countdown is yours.</p>
         </article>
 
@@ -90,7 +98,7 @@
               <span class="mini-admit">Admit everyone</span>
             </div>
           </div>
-          <h3>Free, forever.</h3>
+          <h3>Free, forever</h3>
           <p>Every feature, for everyone. No premium tier, no votes to unlock things, no account to make.</p>
         </article>
 
@@ -100,21 +108,22 @@
             <span class="sync-line"></span>
             <span class="sync-to">Your list, synced daily</span>
           </div>
-          <h3>Set it up once.</h3>
+          <h3>Imports your lists</h3>
           <p>Import what you're watching from AniList, MyAnimeList or Trakt. Premiere keeps the list in sync every day, so new seasons show up on their own.</p>
         </article>
 
         <article class="case case-dm">
           <div class="case-show" aria-hidden="true">
             <div class="msg">
-              <img src="assets/logo.png" alt="" width="36" height="36">
-              <div>
+              <img class="msg-avatar" src="assets/logo.png" alt="" width="36" height="36">
+              <div class="msg-main">
                 <p class="msg-head"><b>Premiere</b><span class="app-tag">App</span><span class="msg-time">Today at 00:00</span></p>
-                <p class="msg-body">Episode 9 is out.</p>
+                <img class="msg-card" src="assets/card-anime.webp" width="1800" height="500" alt="" loading="lazy">
+                <span class="msg-btn">View on AniList<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
               </div>
             </div>
           </div>
-          <h3>Right on time.</h3>
+          <h3>The minute it's out</h3>
           <p>Anime alerts land the minute an episode airs. Reminders an hour or a day early if you want them, and quiet hours if you don't.</p>
         </article>
 
@@ -122,15 +131,17 @@
           <div class="case-show" aria-hidden="true">
             <p class="channel"># releases</p>
             <div class="msg">
-              <img src="assets/logo.png" alt="" width="36" height="36">
-              <div>
+              <img class="msg-avatar" src="assets/logo.png" alt="" width="36" height="36">
+              <div class="msg-main">
                 <p class="msg-head"><b>Premiere</b><span class="app-tag">App</span><span class="msg-time">Today at 00:00</span></p>
-                <p class="msg-body"><span class="role">@Raid Night</span> Hollow Orbit is out now.</p>
+                <p class="msg-body"><span class="role">@Game Night</span></p>
+                <img class="msg-card" src="assets/card-game.webp" width="1800" height="500" alt="" loading="lazy">
+                <span class="msg-btn">View on IGDB<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
               </div>
             </div>
           </div>
-          <h3>Your whole server, too.</h3>
-          <p>Post releases in a channel with a role ping, so the group chat knows the moment the raid patch or season finale drops.</p>
+          <h3>Posts to your server</h3>
+          <p>Post releases in a channel with a role ping, so the whole group chat knows the moment launch day or the season finale arrives.</p>
         </article>
       </div>
     </section>
@@ -204,7 +215,7 @@
 
     <section class="wrap" id="commands" aria-labelledby="commands-title">
       <h2 class="section-title" id="commands-title">Commands</h2>
-      <p class="lede">Server commands need the Manage Server permission. Everything else works for anyone, including in DMs.</p>
+      <p class="lede">Server commands need the Manage Server permission. Everything else works for anyone, including in DMs. Click a command to copy it.</p>
       <div class="letterboard">
         <ul>
           <li><span>/track</span><span>Follow a title or feed</span></li>
@@ -354,12 +365,31 @@
       }
       var next = 0;
       rows.forEach(function (_, i) { show(i, SHOWS[next++ % SHOWS.length], 400 + i * 260); });
+      var pinned = -1;  // a row holding the visitor's own title
       if (!reduce) {
         var turn = 0;
         setInterval(function () {
+          if (turn % ROWS === pinned) turn++;
           show(turn % ROWS, SHOWS[next++ % SHOWS.length], 0);
           turn++;
         }, 3200);
+      }
+
+      // Try it: whatever the visitor types lands on the top row.
+      var tryForm = document.getElementById("try");
+      if (tryForm) {
+        tryForm.hidden = false;
+        var tryNote = document.getElementById("try-note");
+        tryForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var title = tryForm.elements.title.value.replace(/[^A-Za-z0-9 :.'&!?-]/g, " ").replace(/\s+/g, " ").trim();
+          if (!title) return;
+          pinned = 0;
+          rows[0].el.classList.add("is-yours");
+          show(0, ["Yours", title, "", "Tracking"], 0);
+          tryNote.textContent = "That's " + title + " on your board. Add Premiere and it'll tell you the moment it's out.";
+          tryForm.elements.title.value = "";
+        });
       }
 
       // ── Marquee bulbs: equal steps along every side ────────────────────
@@ -399,24 +429,81 @@
       }
 
       // ── Midnight clock: it's 00:00 somewhere, city after city ──────────
+      // The visitor's own city joins the rotation and lights up gold.
       var clock = document.querySelector(".clock");
       if (clock) {
         var cities = clock.dataset.cities.split(",");
+        var mine = "";
+        try { mine = (Intl.DateTimeFormat().resolvedOptions().timeZone || "").split("/").pop().replace(/_/g, " "); } catch (err) {}
+        if (!/^[A-Za-z .'-]{2,11}$/.test(mine) || /^(UTC|GMT)/i.test(mine)) mine = "";
+        if (mine && cities.indexOf(mine) < 0) cities.splice(1, 0, mine);
+        var cityBox = clock.querySelector(".clock-city");
         var timeCells = makeCells(clock.querySelector(".clock-time"), 5);
         var cityCells = makeCells(clock.querySelector(".clock-city"), 11);
         flipTo(timeCells, "00:00");
         if (reduce) {
-          flipTo(cityCells, "YOUR TIME");
+          flipTo(cityCells, mine ? mine.toUpperCase() : "YOUR TIME");
+          cityBox.classList.toggle("is-yours", !!mine);
         } else {
           var ci = 0;
           var nextCity = function () {
-            var name = cities[ci++ % cities.length].toUpperCase();
+            var raw = cities[ci++ % cities.length];
+            cityBox.classList.toggle("is-yours", raw === mine);
+            var name = raw.toUpperCase();
             var pad = Math.floor((11 - name.length) / 2);
             flipTo(cityCells, " ".repeat(pad) + name);
           };
           nextCity();
           setInterval(nextCity, 2800);
         }
+      }
+
+      // ── Hero ticket: tilts toward the pointer, with a glare that follows ──
+      var ticket = document.querySelector(".ticket");
+      if (ticket && !reduce && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        var tiltBox = ticket.parentElement;
+        var glare = document.createElement("span");
+        glare.className = "glare";
+        glare.setAttribute("aria-hidden", "true");
+        ticket.appendChild(glare);
+        var frame = 0, px = 0.5, py = 0.5;
+        var tilt = function () {
+          frame = 0;
+          tiltBox.style.transform = "perspective(1400px) rotateX(" + ((0.5 - py) * 7).toFixed(2) + "deg) rotateY(" + ((px - 0.5) * 9).toFixed(2) + "deg)";
+          ticket.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
+          ticket.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+        };
+        ticket.addEventListener("pointermove", function (e) {
+          var r = ticket.getBoundingClientRect();
+          px = (e.clientX - r.left) / r.width;
+          py = (e.clientY - r.top) / r.height;
+          tiltBox.classList.add("is-tilting");
+          if (!frame) frame = requestAnimationFrame(tilt);
+        });
+        ticket.addEventListener("pointerleave", function () {
+          tiltBox.classList.remove("is-tilting");
+          tiltBox.style.transform = "";
+        });
+      }
+
+      // ── Commands: click one to copy it ─────────────────────────────────
+      if (navigator.clipboard) {
+        document.querySelectorAll(".letterboard li").forEach(function (li) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          while (li.firstChild) btn.appendChild(li.firstChild);
+          li.appendChild(btn);
+          var cmd = btn.firstElementChild.textContent, desc = btn.lastElementChild, original = desc.textContent, timer;
+          btn.setAttribute("aria-label", "Copy " + cmd + ": " + original);
+          btn.addEventListener("click", function () {
+            navigator.clipboard.writeText(cmd).then(function () {
+              desc.textContent = "Copied. Paste it in Discord";
+              btn.classList.add("is-copied");
+              clearTimeout(timer);
+              timer = setTimeout(function () { desc.textContent = original; btn.classList.remove("is-copied"); }, 1800);
+            });
+          });
+        });
       }
 
       // ── Steel Ball Run card: episode 2 counts down, then it's out ──────
