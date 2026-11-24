@@ -152,13 +152,15 @@
 
     <section class="wrap" id="stats" aria-labelledby="stats-title" hidden>
       <h2 class="section-title" id="stats-title">Running right now</h2>
-      <dl class="stat-grid">
-        <div><dt>Titles tracked</dt><dd data-stat="titles"></dd></div>
-        <div><dt>Alerts sent</dt><dd data-stat="alerts_sent"></dd></div>
-        <div><dt>Reminders sent</dt><dd data-stat="reminders_sent"></dd></div>
-        <div><dt>Servers</dt><dd data-stat="servers_online"></dd></div>
-      </dl>
-      <p class="stats-note" id="stats-note"></p>
+      <div class="boxoffice">
+        <p class="boxoffice-head"><span class="live-dot" aria-hidden="true"></span><span>Live from the bot</span><span class="stats-note" id="stats-note"></span></p>
+        <dl class="stat-grid">
+          <div><dd data-stat="titles"></dd><dt>Titles tracked</dt></div>
+          <div><dd data-stat="alerts_sent"></dd><dt>Alerts sent</dt></div>
+          <div><dd data-stat="reminders_sent"></dd><dt>Reminders sent</dt></div>
+          <div><dd data-stat="servers_online"></dd><dt>Servers</dt></div>
+        </dl>
+      </div>
     </section>
 
     <section class="wrap" aria-labelledby="examples">
@@ -185,34 +187,34 @@
       <p class="lede">Search for anything with <code>/track</code> and pick it from the list. Alerts go to your DMs, or to a server channel with an optional ping.</p>
       <ul class="tickets">
         <li class="stub">
+          <p class="stub-screen" aria-hidden="true">EP 9 · OUT NOW</p>
           <h3>Anime</h3>
-          <p>Every new episode, at the minute it airs.</p>
-          <div class="perf"></div>
-          <small>From AniList. Import your AniList or MyAnimeList list.</small>
+          <p>Every new episode, the minute it airs, with a countdown to the next.</p>
+          <ul class="chips"><li>AniList</li><li>MyAnimeList import</li></ul>
         </li>
         <li class="stub">
+          <p class="stub-screen" aria-hidden="true">NOW STREAMING</p>
           <h3>Movies</h3>
           <p>In theaters, digital release, and the day it reaches a streaming service.</p>
-          <div class="perf"></div>
-          <small>From TMDB.</small>
+          <ul class="chips"><li>TMDB</li><li>JustWatch</li></ul>
         </li>
         <li class="stub">
+          <p class="stub-screen" aria-hidden="true">S2 · NEW EPISODE</p>
           <h3>TV</h3>
           <p>New episodes and season premieres. A whole-season drop is one alert.</p>
-          <div class="perf"></div>
-          <small>From TMDB. Import a Trakt watchlist.</small>
+          <ul class="chips"><li>TMDB</li><li>Trakt import</li></ul>
         </li>
         <li class="stub">
+          <p class="stub-screen" aria-hidden="true">UNLOCKED · PC</p>
           <h3>Games</h3>
-          <p>Launch day, new platforms, and release-date changes.</p>
-          <div class="perf"></div>
-          <small>From IGDB.</small>
+          <p>Launch day the moment it unlocks, new platforms, and release-date changes.</p>
+          <ul class="chips"><li>IGDB</li><li>Steam</li></ul>
         </li>
         <li class="stub">
+          <p class="stub-screen" aria-hidden="true">NEW POST</p>
           <h3>News</h3>
-          <p>Steam game news, YouTube uploads, subreddits, or any site with a feed.</p>
-          <div class="perf"></div>
-          <small>Type the name. Premiere finds the feed.</small>
+          <p>Steam game news, YouTube uploads, subreddits, or any site with a feed. Type the name; Premiere finds the feed.</p>
+          <ul class="chips"><li>Steam</li><li>YouTube</li><li>Reddit</li><li>RSS</li></ul>
         </li>
       </ul>
     </section>
@@ -523,7 +525,7 @@
           });
           var mins = Math.max(0, Math.round((Date.now() / 1000 - data.updated_at) / 60));
           var when = mins < 2 ? "just now" : mins < 120 ? mins + " minutes ago" : Math.round(mins / 60) + " hours ago";
-          document.getElementById("stats-note").textContent = "Live from the bot. Updated " + when + ".";
+          document.getElementById("stats-note").textContent = "Updated " + when;
           document.getElementById("stats").hidden = false;
         })
         .catch(function () { /* stats are optional: keep the section hidden */ });
