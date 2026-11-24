@@ -3,9 +3,9 @@
   "users": 1,
   "servers": 1,
   "subscriptions": 9,
-  "releases": 5,
-  "alerts_sent": 1,
+  "releases": 6,
+  "alerts_sent": 2,
   "reminders_sent": 0,
   "servers_online": 2,
-  "updated_at": 1795524967
+  "updated_at": 1795528868
 }
