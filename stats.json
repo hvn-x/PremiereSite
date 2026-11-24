@@ -1,11 +1,11 @@
 {
-  "titles": 8,
+  "titles": 9,
   "users": 1,
   "servers": 1,
-  "subscriptions": 8,
+  "subscriptions": 9,
   "releases": 5,
   "alerts_sent": 1,
   "reminders_sent": 0,
-  "servers_online": 0,
-  "updated_at": 1795476926
+  "servers_online": 2,
+  "updated_at": 1795486730
 }
